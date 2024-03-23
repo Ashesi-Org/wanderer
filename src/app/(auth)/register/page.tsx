@@ -1,7 +1,7 @@
 import { Suspense } from "react";
-import LoginForm from "./form";
 import Button from "@/components/ui/form-button";
 import { Briefcase } from "lucide-react";
+import RegisterForm from "./form";
 
 export default function RegisterPage() {
     return (
@@ -26,7 +26,7 @@ export default function RegisterPage() {
                     </div>
                 }
             >
-                <LoginForm />
+                <RegisterForm />
             </Suspense>
         </div>
     );
