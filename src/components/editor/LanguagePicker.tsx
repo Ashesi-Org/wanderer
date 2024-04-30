@@ -1,30 +1,30 @@
 import * as React from "react";
 import { Check } from "lucide-react";
-import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select"; 
+import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
 import { languageOptions } from "@/lib/constants";
 import { languageOptionsType } from "@/types";
 
 
 interface LanguagePickerProps {
-  onSelectChange: (selectedOption:string) => void;
+  onSelectChange: (selectedOption: string) => void;
 }
 
 const LanguagePicker: React.FC<LanguagePickerProps> = React.memo(({ onSelectChange }) => {
-    const [label, setLabel] = React.useState(languageOptions[0].label);
-const handleChange = React.useCallback(
-  (selectedValue: string) => {
+  const [label, setLabel] = React.useState(languageOptions[0].label);
+  const handleChange = React.useCallback(
+    (selectedValue: string) => {
       onSelectChange(selectedValue);
       setLabel(languageOptions.filter((option) => option.value === selectedValue)[0].label);
-    
-  },
-  [onSelectChange]
-);
+
+    },
+    [onSelectChange]
+  );
 
   return (
     <Select
-        value={languageOptions[0].value} // default value
-        onValueChange={handleChange}
-        aria-label="Select language"
+      value={languageOptions[0].value} // default value
+      onValueChange={handleChange}
+      aria-label="Select language"
     >
       <SelectTrigger>
         <SelectValue>{label}</SelectValue>
@@ -42,5 +42,7 @@ const handleChange = React.useCallback(
     </Select>
   );
 });
+
+LanguagePicker.displayName = "LanguagePicker"; // Add display name
 
 export default LanguagePicker;

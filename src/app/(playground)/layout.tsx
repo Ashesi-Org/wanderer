@@ -1,14 +1,15 @@
 import { ReactNode } from "react";
 import Navbar from "../ui/navbar";
-const AuthLayout = ({ children }: { children: ReactNode }) => {
+
+const PlaygroundLayout = ({ children }: { children: ReactNode }) => {
     return (
-        <div className="overflow-x-hidden">
+        <div className="relative flex flex-col bg-background overflow-hidden">
             <Navbar />
-            <div className="flex h-screen w-screen">
+            <main className="overflow-hidden">
                 {children}
-            </div>
+            </main>
         </div>
     );
 }
 
-export default AuthLayout;
+export default PlaygroundLayout;
