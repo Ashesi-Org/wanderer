@@ -14,7 +14,7 @@ export const CustomDialog = () => {
             <DialogHeader>
                 <DialogTitle>Settings</DialogTitle>
                 <DialogDescription>
-                    Make changes to your environment here. Click save when you are done.
+                    Make changes to your workspace here. Click save when you are done.
                 </DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">

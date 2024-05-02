@@ -1,13 +1,17 @@
-import { SheetDescription, SheetHeader, SheetTitle } from '@/components/ui/sheet';
+import ProblemCard from './problem-card';
 
 const ProblemList = () => {
   return (
     <>
-      <SheetHeader>
-        <SheetTitle>Problems List</SheetTitle>
-        <SheetDescription>Select a question to solve</SheetDescription>
-      </SheetHeader>
-      <div className="grid gap-4 py-4"></div>
+      <div className='my-2'>
+        {
+          Array.from({ length: 4 }, (_, index) => {
+            return (
+              <ProblemCard key={index} />
+            )
+          })
+        }
+      </div>
     </>
   );
 };

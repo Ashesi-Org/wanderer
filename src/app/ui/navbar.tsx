@@ -6,7 +6,13 @@ import {
     Sheet,
     SheetContent,
     SheetTrigger,
+    SheetHeader,
+    SheetDescription,
+    SheetTitle
 } from "@/components/ui/sheet";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Search } from "lucide-react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { CustomDialog } from "@/components/shared/custom-dialog";
 import ProblemList from "@/components/problems-list/problem-list";
@@ -20,6 +26,7 @@ const Navbar = () => {
                         <MountainIcon className="h-6 w-6" />
                     </Link>
                     <Sheet>
+
                         <SheetTrigger asChild>
                             <Button className="h-auto w-fit flex gap-2 items-center" variant="secondary" >
                                 <span>
@@ -28,8 +35,20 @@ const Navbar = () => {
                                 <span className="text-sm">Problem List</span>
                             </Button>
                         </SheetTrigger>
-                        <SheetContent side="left" className="w-[500px]">
-                            <ProblemList />
+                        <SheetContent style={{ width: "600px" }} side="left" >
+                            <SheetHeader>
+                                <SheetTitle>Problems List</SheetTitle>
+                                <SheetDescription>Recommended questions we&apos;ve picked for you</SheetDescription>
+                            </SheetHeader>
+                            <div className="flex w-full max-w-sm items-center space-x-2 py-4 ">
+                                <Input startIcon={Search} type="email" placeholder="Search questions, topics and tags...." />
+                            </div>
+                            <div className='flex justify-end'>
+                                <Label className='text-primary underline'>See all</Label>
+                            </div>
+                            <div className="overflow-y-auto h-full custom-scrollbar flex-1">
+                                <ProblemList />
+                            </div>
                         </SheetContent>
                     </Sheet>
                 </div>

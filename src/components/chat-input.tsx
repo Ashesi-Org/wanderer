@@ -5,15 +5,24 @@ import { Input } from "@/components/ui/input"
 
 export default function ChatInput() {
     const messages = [
-        { text: "Hello, how are you?", sender: "user" },
-        { text: "I'm fine, thanks!", sender: "bot" },
-        { text: "What are you up to?", sender: "user" },
-        { text: "Just chilling here!", sender: "bot" },
-        { text: "Got any plans for the weekend?", sender: "user" },
-        { text: "Not really, just relaxing.", sender: "bot" },
-        { text: "I'm thinking of going hiking.", sender: "user" },
-        { text: "That sounds fun!", sender: "bot" },
-        { text: "Yeah, I love nature.", sender: "user" },
+        { text: "So, let's move on to the technical part of the interview. Have you heard of the FizzBuzz problem?", sender: "bot" },
+        { text: "Yes, I'm familiar with it.", sender: "user" },
+        { text: "Great. Can you explain how you would approach solving it?", sender: "bot" },
+        { text: "Sure. I would iterate through numbers from 1 to 100, check divisibility by 3, 5, or both, and print accordingly.", sender: "user" },
+        { text: "Can you write the code for it?", sender: "bot" },
+        { text: "Here's my JavaScript implementation:", sender: "user" },
+        {
+            text: `for (let i = 1; i <= 100; i++) {
+    let output = "";
+    if (i % 3 === 0) output += "Fizz";
+    if (i % 5 === 0) output += "Buzz";
+    console.log(output || i);
+}`, sender: "user"
+        },
+        { text: "Your code looks clean. Any optimizations?", sender: "bot" },
+        { text: "Storing output in an array could optimize for large iterations. Also, making range configurable.", sender: "user" },
+        { text: "Solid points. You've demonstrated good understanding and provided efficient solutions. Well done!", sender: "bot" },
+        { text: "Thank you. I appreciate the feedback.", sender: "user" }
     ];
 
 
