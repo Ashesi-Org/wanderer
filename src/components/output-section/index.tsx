@@ -5,34 +5,36 @@ import {
     TabsTrigger,
 } from "@/components/ui/tabs"
 import { FileCode, ChevronRight } from "lucide-react";
-import Console from "./console";
+import Terminal from "./terminal";
+import TestCases from "./test-cases-panel";
+
 
 const OutputSection = () => {
     return (
-        <div className="h-full overflow-y-scroll custom-scrollbar">
-            <Tabs defaultValue="result" className="w-[270px]">
-                <TabsList className="grid w-full grid-cols-2">
-                    <TabsTrigger value="result">
-                        <div className="flex items-center gap-1">
-                            <ChevronRight size={16} />
-                            <span>Console</span>
-                        </div>
-                    </TabsTrigger>
-                    <TabsTrigger value="cases">
+        <div className="w-full h-full overflow-y-scroll custom-scrollbar px-3 py-[0.5rem]">
+            <Tabs defaultValue="cases" className="">
+                <TabsList className="grid w-[270px] grid-cols-2">
+
+                    <TabsTrigger className="" value="cases">
                         <div className="flex items-center gap-1">
                             <FileCode size={16} />
                             <span>Test cases</span>
                         </div>
                     </TabsTrigger>
+                    <TabsTrigger value="terminal">
+                        <div className="flex items-center gap-1">
+                            <ChevronRight size={16} />
+                            <span>Terminal</span>
+                        </div>
+                    </TabsTrigger>
                 </TabsList>
-                <TabsContent value="result">
-                    <div className="w-full h-full px-2 py-2">
-                        <Console />
-                    </div>
-                    <div className="h-[50px]" />
+                <TabsContent className="" value="cases">
+                    <TestCases />
                 </TabsContent>
-                <TabsContent value="cases">
-                    <div>Test cases here</div>
+                <TabsContent value="terminal">
+                    <div className="w-full h-full px-2 py-2">
+                        <Terminal />
+                    </div>
                 </TabsContent>
             </Tabs>
         </div>

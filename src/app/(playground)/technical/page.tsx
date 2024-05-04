@@ -8,13 +8,13 @@ import {
     ResizablePanelGroup,
 } from "@/components/ui/resizable"
 
-
 const Playground = () => {
     return (
         <div className="h-screen">
             <ResizablePanelGroup
+
                 direction="horizontal"
-                className="max-w-screen border"
+                className="max-w-screen border "
             >
                 <ResizablePanel defaultSize={40}>
                     <ResizablePanelGroup direction="vertical">
@@ -34,14 +34,14 @@ const Playground = () => {
                 <ResizableHandle withHandle />
                 <ResizablePanel defaultSize={60}>
                     <ResizablePanelGroup direction="vertical">
-                        <ResizablePanel defaultSize={65}>
-                            <div className="flex h-full items-center justify-center rounded-xl p-2">
+                        <ResizablePanel className="p-[0.5rem]" defaultSize={85}>
+                            <div className="flex h-full items-center justify-center rounded-xl">
                                 <CodeEditor />
                             </div>
                         </ResizablePanel>
                         <ResizableHandle withHandle />
-                        <ResizablePanel className="p-2" defaultSize={35}>
-                            <div className="w-full h-full items-center ">
+                        <ResizablePanel className="p-2" defaultSize={15}>
+                            <div className="w-full h-full items-center">
                                 <OutputSection />
                             </div>
                         </ResizablePanel>

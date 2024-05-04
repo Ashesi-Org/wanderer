@@ -33,7 +33,7 @@ const EnvironmentSettings = () => {
                 <Label htmlFor="llm">Editor theme</Label>
                 <Select>
                     <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select your persona" />
+                        <SelectValue placeholder="Select your theme" />
                     </SelectTrigger>
                     <SelectContent className="w-full">
                         <SelectGroup>

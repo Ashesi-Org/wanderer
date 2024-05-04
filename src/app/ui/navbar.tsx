@@ -1,6 +1,5 @@
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { BookText, Play, BugPlay, MountainIcon, Settings } from "lucide-react"
+import { AlarmClock, BookText, Play, BugPlay, MountainIcon, Settings } from "lucide-react"
 import { UserNav } from "@/components/utils/user-nav";
 import {
     Sheet,
@@ -11,15 +10,16 @@ import {
     SheetTitle
 } from "@/components/ui/sheet";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Search } from "lucide-react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { CustomDialog } from "@/components/shared/custom-dialog";
 import ProblemList from "@/components/problems-list/problem-list";
+import Link from 'next/link'
+
 
 const Navbar = () => {
     return (
-        <header className="relative top-0 z-50 w-full border-b border-border/40 bg-background">
+        <header className="relative top-0 z-50 w-full bg-background">
             <div className="flex h-[48px] items-center justify-between px-4 md:px-4">
                 <div className="flex gap-4 items-center">
                     <Link className="flex items-center gap-1" href="#">
@@ -44,7 +44,7 @@ const Navbar = () => {
                                 <Input startIcon={Search} type="email" placeholder="Search questions, topics and tags...." />
                             </div>
                             <div className='flex justify-end'>
-                                <Label className='text-primary underline'>See all</Label>
+                                <Link href="/problems" className='text-primary text-sm underline cursor-pointer'>See all</Link>
                             </div>
                             <div className="overflow-y-auto h-full custom-scrollbar flex-1">
                                 <ProblemList />
@@ -68,9 +68,12 @@ const Navbar = () => {
 
                 </div>
                 <div className="flex gap-3 items-center">
+                    <Button className="w-fit" variant="secondary">
+                        <AlarmClock size={16} />
+                    </Button>
                     <Dialog>
                         <DialogTrigger asChild>
-                            <Button variant="secondary" className="h-auto  w-fit flex items-center gap-2">
+                            <Button variant="secondary" className="h-auto w-fit flex items-center gap-2">
                                 <Settings size={14} />
                                 <span className="text-sm">Settings</span>
                             </Button>

@@ -1,6 +1,11 @@
-import { Mic } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Mic } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+    Avatar,
+    AvatarFallback,
+    AvatarImage,
+} from "@/components/ui/avatar";
 
 
 export default function ChatInput() {
@@ -10,7 +15,6 @@ export default function ChatInput() {
         { text: "Great. Can you explain how you would approach solving it?", sender: "bot" },
         { text: "Sure. I would iterate through numbers from 1 to 100, check divisibility by 3, 5, or both, and print accordingly.", sender: "user" },
         { text: "Can you write the code for it?", sender: "bot" },
-        { text: "Here's my JavaScript implementation:", sender: "user" },
         {
             text: `for (let i = 1; i <= 100; i++) {
     let output = "";
@@ -29,11 +33,18 @@ export default function ChatInput() {
 
     return (
         <div className="flex flex-col w-full h-[calc(100%-45px)]">
-            <div className="flex-1 overflow-scroll custom-scrollbar">
+            <div className="flex-2 overflow-scroll custom-scrollbar">
+
                 <div className="grid grid-cols-1 gap-4 p-4">
                     {messages.map((message, index) => (
-                        <div key={index} className={` ${message.sender === "bot" ? "justify-end" : ""}`}>
-                            <div className={`flex items-end gap-2 ${message.sender === "bot" ? "justify-end" : ""}`}>
+                        <div className="flex items-center gap-2" key={index} >
+                            <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                                <Avatar className="h-8 w-8">
+                                    <AvatarImage src={`${message.sender === "user" ? "https://avatars.githubusercontent.com/u/79936608?v=4" : "https://img.icons8.com/color-glass/48/bot.png"}`} alt="sender-image" />
+                                    <AvatarFallback>SH</AvatarFallback>
+                                </Avatar>
+                            </Button>
+                            <div className={`flex items-end gap-2 `}>
                                 <div className={`rounded-lg ${message.sender === "bot" ? "bg-blue-500 text-white" : "bg-zinc-200"} p-2`}>
                                     <p className="text-sm">{message.text}</p>
                                 </div>
