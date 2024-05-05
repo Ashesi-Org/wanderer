@@ -68,9 +68,9 @@ const Navbar = () => {
 
                 </div>
                 <div className="flex gap-3 items-center">
-                    <Button className="w-fit" variant="secondary">
+                    <div className="p-[0.65rem] w-fit h-full bg-secondary rounded-md text-secondary-foreground hover:bg-secondary/80">
                         <AlarmClock size={16} />
-                    </Button>
+                    </div>
                     <Dialog>
                         <DialogTrigger asChild>
                             <Button variant="secondary" className="h-auto w-fit flex items-center gap-2">

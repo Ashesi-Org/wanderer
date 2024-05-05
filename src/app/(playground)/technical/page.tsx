@@ -2,6 +2,7 @@
 import ChatInput from "@/components/chat-input";
 import CodeEditor from "@/components/editor/code-editor";
 import OutputSection from "@/components/output-section";
+import ProblemDescription from "@/components/problems-list/problem-description";
 import {
     ResizableHandle,
     ResizablePanel,
@@ -19,8 +20,9 @@ const Playground = () => {
                 <ResizablePanel defaultSize={40}>
                     <ResizablePanelGroup direction="vertical">
                         <ResizablePanel defaultSize={60}>
-                            <div className="flex h-full items-center justify-center p-6 custom-scrollbar">
-                                <span className="font-semibold">One</span>
+                            <div className="flex flex-col h-full overflow-y-auto p-4 custom-scrollbar">
+                                <ProblemDescription />
+                                <div className="h-[20px]" />
                             </div>
                         </ResizablePanel>
                         <ResizableHandle withHandle />
