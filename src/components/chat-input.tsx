@@ -1,4 +1,4 @@
-import { Mic, Volume2, PauseCircle } from "lucide-react";
+import { Mic, Volume2, PauseCircle, Bot, SquareSlash } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -7,6 +7,24 @@ import {
     AvatarImage,
 } from "@/components/ui/avatar";
 
+export const NoChatPlaceholder = () => {
+    return (
+        <>
+            <div className="flex justify-center items-center w-full h-full">
+                <div className="flex flex-col items-center">
+                    <div className="flex justify-center">
+                        <Bot className="w-14 h-14 text-center text-slate-700" />
+                    </div>
+                    <p className="font-semibold text-lg text-slate-800 text-center">
+                        No messages yet
+                    </p>
+                    <small className="text-slate-700">Start a conversation with our AI interview assistant</small>
+                </div>
+            </div>
+
+        </>
+    )
+}
 
 export default function ChatInput() {
     const messages = [
@@ -33,6 +51,7 @@ export default function ChatInput() {
 
     return (
         <div className="flex flex-col w-full h-[calc(100%-45px)]">
+            {/* <NoChatPlaceholder /> */}
             <div className="flex-2 overflow-scroll custom-scrollbar">
                 <div className="grid grid-cols-1 gap-4 p-4">
                     {messages.map((message, index) => (
@@ -59,14 +78,12 @@ export default function ChatInput() {
                                         }
                                         {
                                             message.sender === "bot" &&
-                                            <div className="">
+                                            <div className="cursor-pointer">
                                                 <Volume2 className="text-white font-semibold" size={20} />
                                             </div>
                                         }
 
                                     </div>
-
-
                                     <p className="text-sm">{message.text}</p>
                                 </div>
                             </div>
@@ -78,7 +95,7 @@ export default function ChatInput() {
                 <div className="flex items-center gap-2">
                     <form onChange={(e) => e.preventDefault} className="dark:border-zinc-700 flex-1 px-3 py-2">
                         <div className="flex items-center gap-2 w-full">
-                            <Input className="flex-1 h-10 max-w-full" placeholder="Talk with AI interviewer 🤖 ..." />
+                            <Input endIcon={SquareSlash} className="flex-1 h-10 max-w-full" placeholder="Talk with AI interviewer 🤖 ..." />
                             <Button className="rounded-full w-12 h-12">
                                 <Mic size={20} />
                             </Button>

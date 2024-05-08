@@ -1,11 +1,16 @@
 import InputOutput from "./input-output-cases";
 
-const ErrorOutput = () => {
+const OutputStatus = () => {
     return (
         <>
             <div className="w-full h-full mb-3">
                 <div className="flex justify-between py-1 items-center mb-3">
-                    <h3 className="text-red-500 text-xl font-semibold">Runtime Error</h3>
+                    <div className="flex items-center gap-4">
+                        <h3 className="text-red-500 text-xl font-semibold">Runtime Error</h3>
+                        {/* <h3 className="text-green-500 text-xl font-semibold">Accepted</h3>
+                        <p className="text-sm">Runtime: 34ms</p> */}
+                    </div>
+
                     <h3 className="text-sm">Passed test cases: 2/4</h3>
                 </div>
                 <div className="w-full px-3 py-6 h-auto bg-red-100 rounded-md error-box">
@@ -23,4 +28,4 @@ const ErrorOutput = () => {
     );
 }
 
-export default ErrorOutput;
+export default OutputStatus;

@@ -10,7 +10,7 @@ const ProblemCard = () => {
                 <div className='px-4 py-3'>
                     <div className='flex items-center justify-between'>
                         <span className='flex items-center gap-1'>
-                            <p className='text-lg'>1. Add Two Numbers</p>
+                            <p className='text-md'>1. Add Two Numbers</p>
                             {/* <CheckCircle2 className='text-green-500' size={17} /> */}
 
                         </span>

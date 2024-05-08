@@ -19,14 +19,14 @@ const Playground = () => {
             >
                 <ResizablePanel defaultSize={40}>
                     <ResizablePanelGroup direction="vertical">
-                        <ResizablePanel defaultSize={60}>
+                        <ResizablePanel defaultSize={50}>
                             <div className="flex flex-col h-full overflow-y-auto p-4 custom-scrollbar">
                                 <ProblemDescription />
                                 <div className="h-[20px]" />
                             </div>
                         </ResizablePanel>
                         <ResizableHandle withHandle />
-                        <ResizablePanel className="" defaultSize={40}>
+                        <ResizablePanel className="" defaultSize={50}>
                             <div className="flex flex-col w-full h-full items-center">
                                 <ChatInput />
                             </div>

@@ -7,48 +7,78 @@ const ProblemDescription = () => {
             <div className="my-2">
                 <Badge>Easy</Badge>
             </div>
-            <div className="problem-prompt my-2">
-                <p className="text-sm leading-loose">
-                    Given an integer array <code className="bg-secondary p-1 text-xs rounded-sm w-fit h-auto">nums</code> of length n where all the integers of nums are in the range <code className="bg-secondary p-1 text-xs rounded-sm w-fit h-auto">[1, n]</code> and each integer appears once or twice, return an array of all the integers that appears twice.
-                    <br></br>
-                    <br></br>
-                    You must write an algorithm that runs in O(n) time and uses only constant extra space.
+            {/* Problem Statement(paragraphs) */}
+            <div className='text-sm'>
+                <p className='mt-3 text-sm leading-relaxed'>
+                    Given an array of integers <code className="bg-secondary p-1 text-xs rounded-sm w-fit h-auto">nums</code> and an integer <code className="bg-secondary p-1 text-xs rounded-sm w-fit h-auto"> target</code>, return
+                    indices of the two numbers such that they add up to target.
                 </p>
+                <p className='mt-3'>
+                    You may assume that each input would have <strong>exactly one solution</strong>, and you
+                    may not use the same element twice.
+                </p>
+                <p className='mt-3'>You can return the answer in any order.</p>
             </div>
 
+
             <div className="examples flex flex-col gap-y-2 my-4">
-                <div className="flex flex-col gap-y-2">
-                    <strong className="text-sm">Example 1:</strong>
-                    <div className="my-1 w-full">
 
-                        <pre className="text-sm bg-secondary p-3 rounded-sm w-full h-auto" >
-                            <code className="p-2 break-all overflow-auto whitespace-pre-wrap">
-                                {`4\niamlordvoldemort tommarvoloriddle\nb h\nstop post\nhi hey`}
-                            </code>
-                        </pre>
-
+                <div className='mt-4'>
+                    {/* Example 1 */}
+                    <div>
+                        <p className='font-semibold text-sm'>Example 1: </p>
+                        <div className='example-card bg-secondary rounded-sm'>
+                            <pre>
+                                <strong className='text-sm'>Input: </strong> <span className="text-sm">nums = [2,7,11,15], target = 9{" "}</span>
+                                <br />
+                                <strong className='text-sm'>Output:</strong> <span className="text-sm">[0,1] </span><br />
+                                <strong className='text-sm'>Explanation:</strong>
+                                <span className="text-sm"> Because nums[0] + nums[1] == 9, we return [0, 1].</span>
+                            </pre>
+                        </div>
                     </div>
-                </div>
-                <div className="flex flex-col gap-y-2">
-                    <strong className="text-sm">Example 2:</strong>
-                    <div className="my-1 w-full">
 
-                        <pre className="text-sm bg-secondary p-3 rounded-sm w-full h-auto" >
-                            <code className="p-2 break-all overflow-auto whitespace-pre-wrap">
-                                {`4\niamlordvoldemort tommarvoloriddle\nb h\nstop post\nhi hey`}
-                            </code>
-                        </pre>
-
+                    {/* Example 2 */}
+                    <div>
+                        <p className='font-semibold text-sm'>Example 2: </p>
+                        <div className='example-card bg-secondary rounded-sm'>
+                            <pre>
+                                <strong className='text-sm'>Input: </strong>
+                                <span className="text-sm">nums = [3,2,4], target = 6{" "}</span>
+                                <br />
+                                <strong className='text-sm'>Output:</strong>
+                                <span className="text-sm"> [1,2]</span>
+                                <br />
+                                <strong className='text-sm'>Explanation:</strong>
+                                <span className="text-sm"> Because nums[1] + nums[2] == 6, we return [1, 2].</span>
+                            </pre>
+                        </div>
                     </div>
+
                 </div>
-                <div className="flex flex-col gap-y-2 mt-4">
-                    <strong className="text-sm">Constraints</strong>
-                    <pre>
-                        <code className="bg-secondary p-1 text-sm rounded-sm leading-loose w-fit h-auto">
-                            {`0 <= m, n <= 200\n1 <= m + n <= 200\n-10^9 <= nums1[i], nums2[i] <= 10^9`}
-                        </code>
-                    </pre>
+
+
+                {/* Constraints */}
+                <div className='my-3'>
+                    <div className=' text-sm font-semibold'>Constraints:</div>
+                    <ul className=' ml-5 list-disc'>
+                        <li className='mt-2 text-sm'>
+                            <code>2 ≤ nums.length ≤ 10</code>
+                        </li>
+
+                        <li className='mt-2 text-sm'>
+                            <code>-10 ≤ nums[i] ≤ 10</code>
+                        </li>
+                        <li className='mt-2 text-sm'>
+                            <code>-10 ≤ target ≤ 10</code>
+                        </li>
+                        <li className='mt-2 text-sm'>
+                            <strong>Only one valid answer exists.</strong>
+                        </li>
+                    </ul>
                 </div>
+
+
             </div>
         </div>
     );

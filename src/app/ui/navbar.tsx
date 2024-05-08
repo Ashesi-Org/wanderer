@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { AlarmClock, BookText, Play, BugPlay, MountainIcon, Settings } from "lucide-react"
+import { AlarmClock, BookText, Play, BugPlay, MountainIcon, Settings, Loader2 } from "lucide-react"
 import { UserNav } from "@/components/utils/user-nav";
 import {
     Sheet,
@@ -57,8 +57,12 @@ const Navbar = () => {
                         <span>
                             <Play size={14} />
                         </span>
-                        <span>Run</span>
+                        Run
                     </Button>
+                    {/* <Button className="flex h-auto w-fit flex-row gap-x-1 items-center" disabled>
+                        <Loader2 className=" h-4 w-4 animate-spin" />
+                        <small className="text-sm">Running</small>
+                    </Button> */}
                     <Button className="h-auto w-fit flex items-center gap-1" variant="secondary">
                         <span>
                             <BugPlay size={14} />

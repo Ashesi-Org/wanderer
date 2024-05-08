@@ -1,8 +1,8 @@
-import ErrorOutput from "./error-output";
+import OutputStatus from "./error-output";
 
 const Terminal = () => {
     return (
-        <ErrorOutput />
+        <OutputStatus />
     );
 }
 
