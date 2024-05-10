@@ -8,8 +8,11 @@ import {
     ResizablePanel,
     ResizablePanelGroup,
 } from "@/components/ui/resizable"
+import { TooltipWrapper } from "@/components/utils/tooltip-wrapper";
+import { Minus, RotateCcw, X } from "lucide-react";
 
 const Playground = () => {
+
     return (
         <div className="h-screen">
             <ResizablePanelGroup
@@ -27,6 +30,19 @@ const Playground = () => {
                         </ResizablePanel>
                         <ResizableHandle withHandle />
                         <ResizablePanel className="" defaultSize={50}>
+                            <div className="flex items-center justify-between border-b p-3">
+                                <span className="text-sm font-semibold">Assistant</span>
+                                <div className="flex items-center gap-2">
+                                    <span className="cursor-pointer">
+                                        <TooltipWrapper text={'Clear chat'} component={<RotateCcw size={16} />} />
+
+                                    </span>
+                                    <span className="cursor-pointer">
+                                        <TooltipWrapper text={'Collapse'} component={<Minus size={16} />} />
+
+                                    </span>
+                                </div>
+                            </div>
                             <div className="flex flex-col w-full h-full items-center">
                                 <ChatInput />
                             </div>
@@ -37,7 +53,9 @@ const Playground = () => {
                 <ResizablePanel defaultSize={60}>
                     <ResizablePanelGroup direction="vertical">
                         <ResizablePanel className="p-[0.5rem]" defaultSize={85}>
-                            <div className="flex h-full items-center justify-center rounded-xl">
+
+                            <div className="flex flex-col h-full items-center justify-center rounded-xl">
+
                                 <CodeEditor />
                             </div>
                         </ResizablePanel>

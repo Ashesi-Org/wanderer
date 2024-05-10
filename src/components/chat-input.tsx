@@ -50,7 +50,7 @@ export default function ChatInput() {
 
 
     return (
-        <div className="flex flex-col w-full h-[calc(100%-45px)]">
+        <div className="flex flex-col w-full h-[calc(100%-90px)]">
             {/* <NoChatPlaceholder /> */}
             <div className="flex-2 overflow-scroll custom-scrollbar">
                 <div className="grid grid-cols-1 gap-4 p-4">

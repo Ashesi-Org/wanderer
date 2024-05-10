@@ -15,6 +15,7 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { CustomDialog } from "@/components/shared/custom-dialog";
 import ProblemList from "@/components/problems-list/problem-list";
 import Link from 'next/link'
+import { TooltipWrapper } from "@/components/utils/tooltip-wrapper";
 
 
 const Navbar = () => {
@@ -72,8 +73,8 @@ const Navbar = () => {
 
                 </div>
                 <div className="flex gap-3 items-center">
-                    <div className="p-[0.65rem] w-fit h-full bg-secondary rounded-md text-secondary-foreground hover:bg-secondary/80">
-                        <AlarmClock size={16} />
+                    <div className="p-[0.65rem] cursor-pointer w-fit h-full bg-secondary rounded-md text-secondary-foreground hover:bg-secondary/80">
+                        <TooltipWrapper text="Timer" component={<AlarmClock size={16} />} />
                     </div>
                     <Dialog>
                         <DialogTrigger asChild>
