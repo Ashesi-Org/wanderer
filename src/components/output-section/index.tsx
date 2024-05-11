@@ -11,7 +11,7 @@ import TestCases from "./test-cases-panel";
 
 const OutputSection = () => {
     return (
-        <div className="w-full h-full overflow-y-scroll custom-scrollbar px-3 py-[0.5rem]">
+        <div className="w-full h-full overflow-y-scroll custom-scrollbar px-3 py-auto">
             <Tabs defaultValue="cases" className="">
                 <TabsList className="grid w-[270px] grid-cols-2">
 

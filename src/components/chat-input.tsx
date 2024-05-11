@@ -71,7 +71,7 @@ export default function ChatInput() {
                                         {
                                             message.sender === "bot" ?
                                                 <div className="">
-                                                    <span className="text-sm font-semibold">Bot</span>
+                                                    <span className="text-sm font-semibold">Assistant</span>
                                                 </div>
                                                 :
                                                 <span className="text-sm font-semibold">Dev</span>
