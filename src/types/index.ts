@@ -20,3 +20,5 @@ export type Judge0SubmissionOutput = {
 
 
 export type languageOptionsType = typeof languageOptions
+
+
