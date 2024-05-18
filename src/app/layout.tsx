@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import "./global.css"
+import UserContextProvider from '@/contexts/userContext'
+import { ReactQueryClientProvider } from '@/contexts/reactQueryClientProvider';
 
 const inter = Inter({
   weight: '400',
@@ -19,7 +21,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body >{children}</body>
+      <body>
+        <ReactQueryClientProvider>
+        <UserContextProvider>
+          {children}
+        </UserContextProvider>
+        </ReactQueryClientProvider>
+      </body>
     </html>
+
   )
 }
