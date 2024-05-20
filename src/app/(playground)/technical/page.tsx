@@ -29,7 +29,7 @@ const Playground = () => {
                             </div>
                         </ResizablePanel>
                         <ResizableHandle withHandle />
-                        <ResizablePanel className="" defaultSize={50}>
+                        <ResizablePanel className="shadow-sm" defaultSize={50}>
                             <div className="flex items-center justify-between border-b p-3">
                                 <span className="text-sm font-semibold">Assistant</span>
                                 <div className="flex items-center gap-2">

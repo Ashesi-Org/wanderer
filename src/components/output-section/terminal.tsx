@@ -1,4 +1,4 @@
-import OutputStatus from "./error-output";
+import OutputStatus from "./output-status";
 
 const Terminal = () => {
     return (

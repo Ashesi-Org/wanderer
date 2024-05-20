@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { AlarmClock, BookText, Play, BugPlay, MountainIcon, Settings, Loader2 } from "lucide-react"
 import { UserNav } from "@/components/utils/user-nav";
@@ -16,9 +18,17 @@ import { CustomDialog } from "@/components/shared/custom-dialog";
 import ProblemList from "@/components/problems-list/problem-list";
 import Link from 'next/link'
 import { TooltipWrapper } from "@/components/utils/tooltip-wrapper";
+import useCompilerStore from "@/store/editor-store";
+
 
 
 const Navbar = () => {
+    const { running, outputDetails, handleCompile } = useCompilerStore();
+
+    const runCode = () => {
+        handleCompile('console.log("Hello, World!");', '');
+    };
+
     return (
         <header className="relative top-0 z-50 w-full bg-background">
             <div className="flex h-[48px] items-center justify-between px-4 md:px-4">
@@ -54,16 +64,19 @@ const Navbar = () => {
                     </Sheet>
                 </div>
                 <div className="flex justify-center items-center gap-2">
-                    <Button className="h-auto w-fit flex items-center gap-1" >
-                        <span>
-                            <Play size={14} />
-                        </span>
-                        Run
-                    </Button>
-                    {/* <Button className="flex h-auto w-fit flex-row gap-x-1 items-center" disabled>
-                        <Loader2 className=" h-4 w-4 animate-spin" />
-                        <small className="text-sm">Running</small>
-                    </Button> */}
+                    {
+                        running ? <Button className="flex h-auto w-fit flex-row gap-x-1 items-center" disabled>
+                            <Loader2 className=" h-4 w-4 animate-spin" />
+                            <small className="text-sm">Running</small>
+                        </Button> : <Button onClick={runCode} className="h-auto w-fit flex items-center gap-1" >
+                            <span>
+                                <Play size={14} />
+                            </span>
+                            Run
+                        </Button>
+                    }
+
+
                     <Button className="h-auto w-fit flex items-center gap-1" variant="secondary">
                         <span>
                             <BugPlay size={14} />
