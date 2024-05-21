@@ -17,7 +17,7 @@ const ProblemDescription = () => {
                     You may assume that each input would have <strong>exactly one solution</strong>, and you
                     may not use the same element twice.
                 </p>
-                <p className='mt-3'>You can return the answer in any order.</p>
+                <p className='mt-3'>You can return the answer in any order. </p>
             </div>
 
 
