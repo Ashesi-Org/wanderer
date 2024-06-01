@@ -18,7 +18,7 @@ import { CustomDialog } from "@/components/shared/custom-dialog";
 import ProblemList from "@/components/problems-list/problem-list";
 import Link from 'next/link'
 import { TooltipWrapper } from "@/components/utils/tooltip-wrapper";
-import useCompilerStore from "@/store/editor-store";
+import useCompilerStore from "@/store/compiler-store";
 
 
 
@@ -26,7 +26,7 @@ const Navbar = () => {
     const { running, outputDetails, handleCompile } = useCompilerStore();
 
     const runCode = () => {
-        handleCompile('console.log("Hello, World!");', '');
+        handleCompile('console.log("Hello, World!");', 63);
     };
 
     return (

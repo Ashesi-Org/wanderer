@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import LoginForm from "./form";
 import Button from "@/components/ui/form-button";
-import { Briefcase } from "lucide-react";
+import { MountainIcon } from "lucide-react";
 
 export default function LoginPage() {
     return (
@@ -9,7 +9,7 @@ export default function LoginPage() {
 
             <div className="flex flex-col items-center justify-center space-y-3 border-b border-gray-200 bg-white px-4 py-6 pt-8 text-center sm:px-16">
                 <a href="/">
-                    <Briefcase />
+                    <MountainIcon />
                 </a>
                 <h3 className="text-xl font-semibold">Sign in to Wanderer</h3>
                 <p className="text-sm text-gray-500">
