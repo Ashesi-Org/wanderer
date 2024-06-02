@@ -1,6 +1,6 @@
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
-import useCompilerStore from '@/store/compiler-store';
+import useCompilerStore from '@/store/editor-store';
 
 const OutputStatus = () => {
     const { outputDetails } = useCompilerStore();
