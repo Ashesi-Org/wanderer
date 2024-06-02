@@ -22,3 +22,12 @@ export type Judge0SubmissionOutput = {
 export type languageOptionsType = typeof languageOptions
 
 
+export interface TestCase {
+    input: string;
+    output: string;
+    explanation?: string;
+}
+
+export interface TestCasesProps {
+    testCases: TestCase[]
+}

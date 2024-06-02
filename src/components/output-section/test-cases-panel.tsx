@@ -1,20 +1,30 @@
+import { useState, useEffect } from 'react';
 import InputOutput from "./input-output-cases";
+import { TestCase, TestCasesProps } from '@/types';
 
-const TestCases = () => {
+const TestCases = ({ testCases }: TestCasesProps) => {
+    const [selectedCase, setSelectedCase] = useState<TestCase | null>(null);
+
+    useEffect(() => {
+        if (testCases && testCases.length > 0) {
+            setSelectedCase(testCases[0]);
+        }
+    }, [testCases]);
+
     return (
         <>
-            <div className='w-[350px] h-full flex items-center gap-4 py-2  cursor-pointer '>
-                <div className="text-sm bg-[#eee] rounded-md flex justify-center w-[70px] p-2">
-                    Case 1
-                </div>
-                <div className="text-sm bg-[#eee] rounded-md flex justify-center w-[70px] p-2">
-                    Case 2
-                </div>
-                <div className="text-sm bg-[#eee] flex rounded-md justify-center w-[70px] p-2">
-                    Case 3
-                </div>
+            <div className='w-[350px] h-full flex flex-wrap gap-4 py-2 cursor-pointer'>
+                {testCases?.map((testCase: TestCase, index) => (
+                    <div
+                        key={index}
+                        className={`text-sm rounded-md flex justify-center w-[70px] p-2 ${selectedCase === testCase ? 'bg-blue-300 text-white' : 'bg-[#eee]'}`}
+                        onClick={() => setSelectedCase(testCase)}
+                    >
+                        Case {index + 1}
+                    </div>
+                ))}
             </div>
-            <InputOutput />
+            {selectedCase && <InputOutput input={selectedCase.input} output={selectedCase.output} />}
         </>
     );
 }

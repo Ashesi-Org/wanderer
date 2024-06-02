@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { AlarmClock, BookText, Play, BugPlay, MountainIcon, Settings, Loader2 } from "lucide-react"
+import { AlarmClock, BookText, Play, BugPlay, MountainIcon, Settings, Loader2, Code } from "lucide-react"
 import { UserNav } from "@/components/utils/user-nav";
 import {
     Sheet,
@@ -18,16 +18,17 @@ import { CustomDialog } from "@/components/shared/custom-dialog";
 import ProblemList from "@/components/problems-list/problem-list";
 import Link from 'next/link'
 import { TooltipWrapper } from "@/components/utils/tooltip-wrapper";
-import useCompilerStore from "@/store/compiler-store";
+import useCompilerStore from "@/store/editor-store";
 
 
 
 const Navbar = () => {
-    const { running, outputDetails, handleCompile } = useCompilerStore();
+    const {code, running, outputDetails, handleCompile } = useCompilerStore();
 
     const runCode = () => {
-        handleCompile('console.log("Hello, World!");', 63);
+        handleCompile(code, '', 71, 1, 1, 'b2d8c1a6-e811-4b1e-b764-7a0ec0aa9c74');
     };
+
 
     return (
         <header className="relative top-0 z-50 w-full bg-background">

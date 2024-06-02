@@ -27,7 +27,16 @@ const EditorLoadingSkeleton = () => {
   );
 };
 
-const CodeEditor = () => {
+
+interface CodeEditorProps {
+
+  language: string;
+  problemId: number,
+  driverCode: string
+
+}
+
+const CodeEditor = ({  language, problemId, driverCode }: CodeEditorProps) => {
   const { code, setCode } = useCompilerStore();
   const [dialogVisible, setDialogVisible] = useState(false);
   const [dialogPosition, setDialogPosition] = useState({ lineNumber: 0, column: 0 });
@@ -81,69 +90,9 @@ const CodeEditor = () => {
         theme="vs-dark"
         language="python"
         loading={<EditorLoadingSkeleton />}
-        value={code || javascriptDefault}
-        onChange={(newValue) => setCode(newValue || '')}
-        onMount={handleEditorMount}
+        value={code || driverCode} // Use the code state as the initial value
+        onChange={(newValue) => setCode(newValue || '')} // Update the code state when the value changes
       />
-
-      {dialogVisible && (
-
-        <Card
-          className=" bg-white p-3 shadow-lg rounded-md w-[500px]"
-          style={{
-            position: 'absolute',
-            top: `${dialogPosition.lineNumber * 20}px`,
-            left: `${dialogPosition.column * 8}px`,
-            zIndex: 1000,
-          }}
-        >
-          <div className="flex justify-between">
-            <div className="flex items-center gap-2 mb-2">
-              <div className="relative h-[28px] w-[28px] rounded-full border-2 border-primary">
-                <Avatar className="h-[28px] w-[28px]">
-                  <AvatarImage src="https://img.icons8.com/stickers/48/bot.png" alt="bot-image" />
-                  <AvatarFallback className="flex justify-center text-sm">AI</AvatarFallback>
-                </Avatar>
-              </div>
-              <span className="font-semibold text-sm text-gray-900">Assistant</span>
-            </div>
-            <div onClick={() => setDialogVisible(false)} className="relative h-6 w-6 rounded-full cursor-pointer hover:border-primary">
-              <X className='font-semibold' size={18} />
-            </div>
-          </div>
-          <div className="my-2 flex items-center gap-2">
-            <Input
-              type="text"
-              placeholder="Ask the assistant..."
-              value={inputValue}
-              className="w-full "
-              onChange={(e) => setInputValue(e.target.value)}
-            />
-            <Button className="flex items-center gap-1">
-              <span>Generate</span>
-              <Sparkles size={13} color="white" />
-            </Button>
-          </div>
-
-          {/* <div className="my-4">
-            <p className="font-semibold text-gray-800 text-start text-sm">Answer</p>
-            <p className=" text-sm">
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-            </p>
-          </div>
-          <div className="mt-4 flex items-center gap-2">
-            <Button className="flex items-center gap-1">
-              <span>Accept</span>
-              <Check size={13} color="white" />
-            </Button>
-            <Button className="flex items-center gap-1" variant="outline">
-              <span>Regenerate</span>
-              <RotateCw size={13} color="black" />
-            </Button>
-          </div> */}
-
-        </Card>
-      )}
     </div>
   );
 };
