@@ -2,6 +2,7 @@
 
 import { create } from 'zustand';
 import axios from 'axios';
+import { api } from '@/lib/api';
 
 interface Status {
     id: number;
@@ -62,13 +63,13 @@ const useCompilerStore = create<CompilerStore>((set, get) => ({
 
     const options = {
       method: 'POST',
-      url: 'http://localhost:8000/api/submission', 
+      url: '/api/submission', 
       params: { type: 'test' }, // Or 'submit'
       data: formData,
     };
 
     try {
-      const response = await axios.request(options);
+      const response = await api.request(options);
       const results = response.data;
       console.log(results)
       setRunning(false);

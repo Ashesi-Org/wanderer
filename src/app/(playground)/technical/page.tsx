@@ -9,6 +9,7 @@ import {
     ResizablePanelGroup,
 } from "@/components/ui/resizable"
 import { TooltipWrapper } from "@/components/utils/tooltip-wrapper";
+import { api } from "@/lib/api";
 import { TestCase } from "@/types";
 import axios from "axios";
 import { Minus, RotateCcw, X } from "lucide-react";
@@ -45,8 +46,8 @@ const Playground = () => {
     // TODO: activeproblem store
     // use usequery to query for a problem challenge from the frontend
     const  { data:problem } = useQuery('activeProblem', async () => {
-        const response = await axios.get('http://localhost:8000/api/challenge/1',
-        )
+        const response = await api.get(`/api/challenge/${1}`)
+
         return response.data as ProblemDescriptionProps;
     })
 

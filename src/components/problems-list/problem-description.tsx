@@ -52,13 +52,13 @@ const ProblemDescription = ({ title, description, content, difficulty, constrain
                             <p className='font-semibold text-sm'>Example {index + 1}: </p>
                             <div className='example-card bg-secondary rounded-sm'>
                                 <pre>
-                                    <strong className='text-sm'>Input: </strong>
+                                    <strong className='text-sm'>Input:  </strong>
                                     <span className="text-sm">{example.input}</span>
                                     <br />
-                                    <strong className='text-sm'>Output:</strong>
+                                    <strong className='text-sm'>Output:  </strong>
                                     <span className="text-sm">{example.output}</span>
                                     <br />
-                                    <strong className='text-sm'>Explanation:</strong>
+                                    <strong className='text-sm'>Explanation:  </strong>
                                     <span className="text-sm">{example.explanation ? example.explanation : ''}</span>
                                 </pre>
                             </div>
