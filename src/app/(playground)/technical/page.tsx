@@ -3,6 +3,8 @@ import ChatInput from "@/components/chat-input";
 import CodeEditor from "@/components/editor/code-editor";
 import OutputSection from "@/components/output-section";
 import ProblemDescription from "@/components/problems-list/problem-description";
+import VideoAudioRecorder from "../../../components/video-frame/video-frame";
+
 import {
     ResizableHandle,
     ResizablePanel,
@@ -53,6 +55,8 @@ const Playground = () => {
 
 
     return (
+        <>
+        <VideoAudioRecorder />
         <div className="h-screen">
             <ResizablePanelGroup
 
@@ -63,7 +67,7 @@ const Playground = () => {
                     <ResizablePanelGroup direction="vertical">
                         <ResizablePanel defaultSize={50}>
                             <div className="flex flex-col h-full overflow-y-auto p-4 custom-scrollbar">
-                                <ProblemDescription {...problem}/>
+                                <ProblemDescription {...problem} />
                                 <div className="h-[20px]" />
                             </div>
                         </ResizablePanel>
@@ -95,13 +99,13 @@ const Playground = () => {
 
                             <div className="flex flex-col h-full items-center justify-center rounded-xl">
 
-                                <CodeEditor language="python" driverCode={problem?.driverCode || ""} problemId={problem?.challenge_id!}  />
+                                <CodeEditor language="python" driverCode={problem?.driverCode || ""} problemId={problem?.challenge_id!} />
                             </div>
                         </ResizablePanel>
                         <ResizableHandle withHandle />
                         <ResizablePanel className="p-2" defaultSize={15}>
                             <div className="w-full h-full items-center">
-                                <OutputSection testCases={problem?.sampleTestCase as TestCase[]}/>
+                                <OutputSection testCases={problem?.sampleTestCase as TestCase[]} />
                             </div>
                         </ResizablePanel>
                     </ResizablePanelGroup>
@@ -109,7 +113,7 @@ const Playground = () => {
                 <ResizableHandle />
 
             </ResizablePanelGroup>
-        </div>
+        </div></>
     )
 }
 
