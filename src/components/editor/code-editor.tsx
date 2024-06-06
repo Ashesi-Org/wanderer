@@ -1,8 +1,7 @@
 import React, { useRef, useState } from "react";
 import Editor, { OnMount } from "@monaco-editor/react";
-import { javascriptDefault } from "@/lib/constants";
 import { Skeleton } from "../ui/skeleton";
-import useCompilerStore from "@/store/compiler-store";
+import useCompilerStore from "@/store/editor-store";
 import * as monaco from "monaco-editor";
 import { Card, CardContent, CardFooter } from "../ui/card";
 import { Input } from "../ui/input";
@@ -27,7 +26,14 @@ const EditorLoadingSkeleton = () => {
   );
 };
 
-const CodeEditor = () => {
+
+interface CodeEditorProps {
+  language: string;
+  problemId: number,
+  driverCode: string
+}
+
+const CodeEditor = ({  language, problemId, driverCode }: CodeEditorProps) => {
   const { code, setCode } = useCompilerStore();
   const [dialogVisible, setDialogVisible] = useState(false);
   const [dialogPosition, setDialogPosition] = useState({ lineNumber: 0, column: 0 });
@@ -66,10 +72,12 @@ const CodeEditor = () => {
     }
   };
 
+
+
   return (
     <div className="overlay overflow-hidden w-full h-full shadow-sm rounded-md relative">
-      <Editor
-        options={{
+       <Editor
+          options={{
           minimap: {
             enabled: false,
           },
@@ -81,8 +89,8 @@ const CodeEditor = () => {
         theme="vs-dark"
         language="python"
         loading={<EditorLoadingSkeleton />}
-        value={code || javascriptDefault}
-        onChange={(newValue) => setCode(newValue || '')}
+        value={code || driverCode} 
+        onChange={(newValue) => setCode(newValue || '')} 
         onMount={handleEditorMount}
       />
 

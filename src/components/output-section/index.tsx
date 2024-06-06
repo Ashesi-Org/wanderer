@@ -7,10 +7,13 @@ import {
 import { FileCode, ChevronRight } from "lucide-react";
 import Terminal from "./terminal";
 import TestCases from "./test-cases-panel";
+import { TestCase, TestCasesProps } from "@/types";
 
 
-const OutputSection = () => {
+const OutputSection = ({testCases}:TestCasesProps) => {
+
     return (
+
         <div className="w-full h-full overflow-y-scroll custom-scrollbar px-3 py-[0.5rem]">
             <Tabs defaultValue="cases" className="">
                 <TabsList className="grid w-[270px] grid-cols-2">
@@ -29,7 +32,7 @@ const OutputSection = () => {
                     </TabsTrigger>
                 </TabsList>
                 <TabsContent className="" value="cases">
-                    <TestCases />
+                    <TestCases testCases={testCases} />
                 </TabsContent>
                 <TabsContent value="terminal">
                     <div className="w-full h-full px-2 py-2">

@@ -81,6 +81,8 @@ body {
 }
 */
 
+/* <h1>Reverse String</h1><p><strong>Description:</strong> Write a function that takes a string as input and returns the string reversed.</p><h2>Examples:</h2><p><strong>Example 1:</strong></p><pre><code>Input: hello<br>Output: olleh</code></pre><p><strong>Example 2:</strong></p><pre><code>Input: world<br>Output: dlrow</code></pre><h2>Constraints:</h2><ul><li>The input string consists of printable ASCII characters.</li></ul>" */
+
 .example-card pre {
   border-radius: 0.5rem;
   line-height: 1.25rem;
@@ -88,6 +90,17 @@ body {
   margin-top: 1rem;
   padding: 1rem;
   white-space: pre-wrap;
+}
+
+.desc pre{
+  border-radius: 0.5rem;
+  line-height: 1.25rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  white-space: pre-wrap;
+  background-color: var(--bg-secondary)
+
 }
 
 @layer base {
