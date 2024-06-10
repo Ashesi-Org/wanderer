@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { AlarmClock, BookText, Play, BugPlay, MountainIcon, Settings, Loader2, Code } from "lucide-react"
+import { AlarmClock, BookText, Play, BugPlay, MountainIcon, Settings, Loader2 } from "lucide-react"
 import { UserNav } from "@/components/utils/user-nav";
 import {
     Sheet,
@@ -19,34 +19,37 @@ import ProblemList from "@/components/problems-list/problem-list";
 import Link from 'next/link'
 import { TooltipWrapper } from "@/components/utils/tooltip-wrapper";
 import useCompilerStore from "@/store/editor-store";
+import { usePathname } from 'next/navigation'
 
 
 
 const Navbar = () => {
-    const {code, running, outputDetails, handleCompile } = useCompilerStore();
+    const { code, running, outputDetails, handleCompile } = useCompilerStore();
 
     const runCode = () => {
         handleCompile(code, '', 71, 1, 1, 'b2d8c1a6-e811-4b1e-b764-7a0ec0aa9c74');
     };
 
+    const pathname = usePathname()
+
 
     return (
-        <header className="relative top-0 z-50 w-full bg-background">
+        <header className={`relative top-0 z-50 w-full bg-background border-b ${pathname === "/challenges" && "p-1"}`}>
             <div className="flex h-[48px] items-center justify-between px-4 md:px-4">
                 <div className="flex gap-4 items-center">
                     <Link className="flex items-center gap-1" href="#">
-                        <MountainIcon className="h-6 w-6" />
+                        <MountainIcon className={`h-6 w-6 font-bold ${pathname == "/challenges" ? "text-primary" : ""}`} />
                     </Link>
                     <Sheet>
 
-                        <SheetTrigger asChild>
+                        {pathname !== '/challenges' ? <SheetTrigger asChild>
                             <Button className="h-auto w-fit flex gap-2 items-center" variant="secondary" >
                                 <span>
                                     <BookText size={14} />
                                 </span>
                                 <span className="text-sm">Problem List</span>
                             </Button>
-                        </SheetTrigger>
+                        </SheetTrigger> : <h2 className="font-semibold text-lg text-primary">Wanderer</h2>}
                         <SheetContent style={{ width: "600px" }} side="left" >
                             <SheetHeader>
                                 <SheetTitle>Problems List</SheetTitle>
@@ -56,7 +59,7 @@ const Navbar = () => {
                                 <Input startIcon={Search} type="email" placeholder="Search questions, topics and tags...." />
                             </div>
                             <div className='flex justify-end'>
-                                <Link href="/problems" className='text-primary text-sm underline cursor-pointer'>See all</Link>
+                                <Link href="/challenges" target="_blank" className='text-primary text-sm underline cursor-pointer'>See all</Link>
                             </div>
                             <div className="overflow-y-auto h-full custom-scrollbar flex-1">
                                 <ProblemList />
@@ -64,7 +67,7 @@ const Navbar = () => {
                         </SheetContent>
                     </Sheet>
                 </div>
-                <div className="flex justify-center items-center gap-2">
+                {pathname !== '/challenges' && <div className="flex justify-center items-center gap-2">
                     {
                         running ? <Button className="flex h-auto w-fit flex-row gap-x-1 items-center" disabled>
                             <Loader2 className=" h-4 w-4 animate-spin" />
@@ -85,12 +88,12 @@ const Navbar = () => {
                         <span>Submit</span>
                     </Button>
 
-                </div>
+                </div>}
                 <div className="flex gap-3 items-center">
-                    <div className="p-[0.65rem] cursor-pointer w-fit h-full bg-secondary rounded-md text-secondary-foreground hover:bg-secondary/80">
+                    {pathname !== "/challenges" && <div className="p-[0.65rem] cursor-pointer w-fit h-full bg-secondary rounded-md text-secondary-foreground hover:bg-secondary/80">
                         <TooltipWrapper text="Timer" component={<AlarmClock size={16} />} />
-                    </div>
-                    <Dialog>
+                    </div>}
+                    {pathname !== "/challenges" && <Dialog>
                         <DialogTrigger asChild>
                             <Button variant="secondary" className="h-auto w-fit flex items-center gap-2">
                                 <Settings size={14} />
@@ -100,7 +103,7 @@ const Navbar = () => {
                         <DialogContent className="max-w-[425px]">
                             <CustomDialog />
                         </DialogContent>
-                    </Dialog>
+                    </Dialog>}
 
                     <UserNav />
                 </div>

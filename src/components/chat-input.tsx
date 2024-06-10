@@ -1,4 +1,4 @@
-import { Mic, Volume2, PauseCircle, Bot, SquareSlash } from "lucide-react";
+import { Mic, Volume2, PauseCircle, Bot, AtSign, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -6,19 +6,30 @@ import {
     AvatarFallback,
     AvatarImage,
 } from "@/components/ui/avatar";
+import { useState } from "react";
+import useCompilerStore from "@/store/compiler-store";
+import {
+    createParser,
+    ParsedEvent,
+    ReconnectInterval,
+} from "eventsource-parser";
 
-export const NoChatPlaceholder = () => {
+const NoChatPlaceholder = () => {
     return (
         <>
             <div className="flex justify-center items-center w-full h-full">
                 <div className="flex flex-col items-center">
                     <div className="flex justify-center">
-                        <Bot className="w-14 h-14 text-center text-slate-700" />
+                        <Bot className="w-10 h-10 text-center text-slate-600" />
                     </div>
-                    <p className="font-semibold text-lg text-slate-800 text-center">
+                    <p className=" text-slate-600 text-center mb-4">
                         No messages yet
                     </p>
-                    <small className="text-slate-700">Start a conversation with our AI interview assistant</small>
+                    <Button className="flex items-center gap-1">
+                        <span>Start conversation </span>
+
+                        <Send size={20} />
+                    </Button>
                 </div>
             </div>
 
@@ -47,8 +58,63 @@ export default function ChatInput() {
         { text: "Thank you. I appreciate the feedback.", sender: "user" }
     ];
 
+    // TODO: Get code and interview question
+    const [prompt, setPrompt] = useState("");
+    const { code } = useCompilerStore();
+    const [interviewQuestion, setInterviewQuestion] = useState('');
+    const [answer, setAnswer] = useState('');
 
+    async function handleAnswer() {
 
+        const response = await fetch("/api/mistral", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ interviewQuestion, userCode: code, query: prompt }),
+        });
+
+        if (!response.ok) {
+            throw new Error(response.statusText);
+        }
+
+        if (response.status === 202) {
+            const fullAnswer = await response.text();
+            setAnswer(fullAnswer);
+            return;
+        }
+
+        // This data is a ReadableStream
+        const data = response.body;
+        if (!data) {
+            return;
+        }
+
+        const onParse = (event: ParsedEvent | ReconnectInterval) => {
+            if (event.type === "event") {
+                const data = event.data;
+                try {
+                    const text = JSON.parse(data).text ?? "";
+                    setAnswer((prev) => prev + text);
+                } catch (e) {
+                    console.error(e);
+                }
+            }
+        };
+
+        // https://web.dev/streams/#the-getreader-and-read-methods
+        const reader = data.getReader();
+        const decoder = new TextDecoder();
+        const parser = createParser(onParse);
+        let done = false;
+        while (!done) {
+            const { value, done: doneReading } = await reader.read();
+            done = doneReading;
+            const chunkValue = decoder.decode(value);
+            parser.feed(chunkValue);
+        }
+
+    }
     return (
         <div className="flex flex-col w-full h-[calc(100%-90px)]">
             {/* <NoChatPlaceholder /> */}
@@ -93,10 +159,10 @@ export default function ChatInput() {
             </div>
             <div className="w-full transition-all duration-300 bg-background border-t backdrop-blur-sm" >
                 <div className="flex items-center gap-2">
-                    <form onChange={(e) => e.preventDefault} className="dark:border-zinc-700 flex-1 px-3 py-2">
+                    <form onSubmit={handleAnswer} className="dark:border-zinc-700 flex-1 px-3 py-2">
                         <div className="flex items-center gap-2 w-full">
-                            <Input endIcon={SquareSlash} className="flex-1 h-10 max-w-full" placeholder="Talk with AI interviewer 🤖 ..." />
-                            <Button className="rounded-full w-12 h-12">
+                            <Input value={prompt} onChange={(e) => setPrompt(e.target.value)} startIcon={AtSign} className="flex-1 h-10 max-w-full" placeholder="Talk with AI interviewer 🤖 ..." />
+                            <Button type="submit" className="rounded-full w-12 h-12">
                                 <Mic size={20} />
                             </Button>
                         </div>

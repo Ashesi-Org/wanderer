@@ -23,12 +23,11 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ReactQueryClientProvider>
-        <UserContextProvider>
-          {children}
-        </UserContextProvider>
+          <UserContextProvider>
+            {children}
+          </UserContextProvider>
         </ReactQueryClientProvider>
       </body>
     </html>
-
   )
 }
