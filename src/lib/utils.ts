@@ -11,6 +11,22 @@ export const classnames = (...args: string[]): string => {
 };
 
 
+export const createSlug = (title: string): string => {
+  return title
+    .toLowerCase()                     
+    .replace(/[^a-z0-9\s-]/g, '')      
+    .replace(/\s+/g, '-')               
+    .replace(/-+/g, '-')                
+    .replace(/^-+|-+$/g, '');          
+}
+
+
+export const formatObjectAsString = (obj:any) => {
+  return Object.entries(obj)
+    .map(([key, value]) => `${key}: ${value}`)
+    .join(', ');
+};
+
 
 export const validateEmail = (email: string) => {
         const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
