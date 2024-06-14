@@ -30,7 +30,7 @@ ${userCode}
 
   try {
     const payload: TogetherAIStreamPayload = {
-      model: 'mistralai/Mixtral-7B-Instruct-v0.3',
+      model: 'mistralai/Mixtral-8x7B-Instruct-v0.1',
       messages: [
         { role: 'system', content: prompt },
         {

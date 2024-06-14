@@ -27,7 +27,7 @@ const Navbar = () => {
     const { code, running, outputDetails, handleCompile } = useCompilerStore();
 
     const runCode = () => {
-        handleCompile(code, '', 71, 1, 1, 'b2d8c1a6-e811-4b1e-b764-7a0ec0aa9c74');
+        handleCompile(code, '', 71, 11, 1, 'b2d8c1a6-e811-4b1e-b764-7a0ec0aa9c74');
     };
 
     const pathname = usePathname()

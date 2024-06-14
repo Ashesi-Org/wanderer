@@ -1,69 +1,78 @@
-
-
 import { create } from 'zustand';
-import axios from 'axios';
 import { api } from '@/lib/api';
 
 interface Status {
-    id: number;
-    description: string;
+  id: number;
+  description: string;
 }
 
 interface Result {
-    input: string;
-    expectedOutput: string;
-    output: string;
-    status: Status;
-    time: number;
-    memory: number;
+  input: string;
+  expectedOutput: string;
+  output: string;
+  status: Status;
+  time: number;
+  memory: number;
 }
 
 interface OutputData {
-    results: Result[];
-    averageRuntime: number;
-    averageMemory: number;
+  results: Result[];
+  averageRuntime: number;
+  averageMemory: number;
 }
 
 interface OutputDetails {
-    output_data: OutputData;
-    status: string;
+  output_data: OutputData;
+  status: string;
 }
 
-
 interface CompilerStore {
-  code:string,
+  code: string;
   setCode: (code: string) => void;
   running: boolean;
   outputDetails: OutputDetails | null;
   setRunning: (running: boolean) => void;
   setOutputDetails: (outputDetails: OutputDetails | null) => void;
-  handleCompile: (code: string, customInput: string, language_id: number, problemId: number, userId:number, sessionId: string) => void;
+  handleCompile: (
+    code: string,
+    customInput: string,
+    language_id: number,
+    problemId: number,
+    userId: number,
+    sessionId: string
+  ) => void;
 }
 
 const useCompilerStore = create<CompilerStore>((set, get) => ({
   code: '',
-  setCode: (code) => set({ code }),
+  setCode: (newCode) => set({ code: newCode }),
   running: false,
   outputDetails: null,
   setRunning: (running) => set({ running }),
   setOutputDetails: (outputDetails) => set({ outputDetails }),
-  handleCompile: async (code, customInput, language_id, problemId, userId, sessionId) => {
+  handleCompile: async (
+    code,
+    customInput,
+    language_id,
+    problemId,
+    userId,
+    sessionId
+  ) => {
     const setRunning = get().setRunning;
     const setOutputDetails = get().setOutputDetails;
 
     setRunning(true);
     const formData = {
       languageId: language_id || 63,
-      code:code,
+      code: code,
       problemId: problemId,
-      userId:userId,
-      sessionId:sessionId
-    
+      userId: userId,
+      sessionId: sessionId,
     };
 
     const options = {
       method: 'POST',
-      url: '/api/submission', 
+      url: '/api/submission',
       params: { type: 'test' }, // Or 'submit'
       data: formData,
     };
@@ -71,7 +80,7 @@ const useCompilerStore = create<CompilerStore>((set, get) => ({
     try {
       const response = await api.request(options);
       const results = response.data;
-      console.log(results)
+      console.log(results);
       setRunning(false);
       setOutputDetails(results);
     } catch (err: any) {
@@ -88,7 +97,6 @@ const useCompilerStore = create<CompilerStore>((set, get) => ({
       console.log('catch block...', error);
     }
   },
-
 }));
 
 export default useCompilerStore;

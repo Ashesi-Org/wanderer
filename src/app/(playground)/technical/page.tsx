@@ -1,5 +1,5 @@
 "use client";
-import ChatInput from "@/components/chat-input";
+import ChatInput from "@/components/chat-input.jsx";
 import CodeEditor from "@/components/editor/code-editor";
 import OutputSection from "@/components/output-section";
 import ProblemDescription from "@/components/problems-list/problem-description";
@@ -13,9 +13,8 @@ import {
 import { TooltipWrapper } from "@/components/utils/tooltip-wrapper";
 import { api } from "@/lib/api";
 import { TestCase } from "@/types";
-import { Minus, RotateCcw } from "lucide-react";
+import { Mic, Minus, RotateCcw, Send } from "lucide-react";
 import { useQuery } from "react-query";
-
 
 interface ProblemDescriptionProps {
     challenge_id?: number;
@@ -40,11 +39,10 @@ interface ProblemDescriptionProps {
 const Playground = () => {
 
     const { data: problem, isLoading } = useQuery('activeProblem', async () => {
-        const response = await api.get(`/api/challenge/${2}`)
+        const response = await api.get(`/api/challenge/${13}`)
 
         return response.data as ProblemDescriptionProps;
     })
-
 
     return (
         <>
@@ -53,9 +51,9 @@ const Playground = () => {
                 <ResizablePanelGroup
 
                     direction="horizontal"
-                    className="max-w-screen border "
+                    className="w-full border "
                 >
-                    <ResizablePanel defaultSize={40}>
+                    <ResizablePanel className="" defaultSize={40}>
                         <ResizablePanelGroup direction="vertical">
                             <ResizablePanel defaultSize={50}>
                                 <div className="flex flex-col h-full overflow-y-auto p-4 custom-scrollbar">
@@ -78,8 +76,8 @@ const Playground = () => {
                                         </span>
                                     </div>
                                 </div>
-                                <div className="flex flex-col w-full h-full items-center">
-                                    <ChatInput />
+                                <div className="flex flex-col h-full items-center">
+                                    <ChatInput interviewQuestion={problem?.content ?? ""} />
                                 </div>
                             </ResizablePanel>
                         </ResizablePanelGroup>
@@ -91,7 +89,7 @@ const Playground = () => {
 
                                 <div className="flex flex-col h-full items-center justify-center rounded-xl">
 
-                                    <CodeEditor language="python" driverCode={problem?.driverCode || ""} problemId={problem?.challenge_id!} />
+                                    <CodeEditor question={problem?.content!} language="python" driverCode={problem?.driverCode || ""} problemId={problem?.challenge_id!} />
                                 </div>
                             </ResizablePanel>
                             <ResizableHandle withHandle />

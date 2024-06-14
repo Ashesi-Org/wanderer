@@ -1,75 +1,44 @@
-import { OpenAIStream, StreamingTextResponse } from 'ai';
-import { Configuration, OpenAIApi } from 'openai-edge';
+import { StreamingTextResponse, streamText } from 'ai';
+import { createOpenAI } from '@ai-sdk/openai';
 
-export const runtime = 'edge';
-
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
+const groq = createOpenAI({
+  apiKey: process.env.GROQ_API_KEY,
+  baseURL: 'https://api.groq.com/openai/v1',
 });
 
-const openai = new OpenAIApi(configuration);
-
 export async function POST(req: Request) {
-  const json = await req.json();
-  const { messages, interviewQuestion, candidateCode } = json;
+  const { currentImplementation, problem } = await req.json();
 
-  if (!messages || !Array.isArray(messages)) {
-    return new Response(
-      JSON.stringify({ error: 'Please provide a valid messages array.' }),
-      {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
-  }
+  if (!problem) return new Response('Problem is required', { status: 400 });
+  if (!currentImplementation)
+    return new Response('What is your current impelementation', {
+      status: 400,
+    });
 
-  let prompt;
-  if (messages.length === 0) {
-    // If it's the initial message
-    if (!interviewQuestion || !candidateCode) {
-      return new Response(
-        JSON.stringify({
-          error:
-            'Please provide both the interview question and candidate code.',
-        }),
-        {
-          status: 400,
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
-    }
+  const prompt = `
 
-    prompt = `
-You are a technical interview assistant focused on helping candidates solve coding problems (LeetCode style). Your role is to guide them through the interview process by providing hints, suggestions, bug fixing advice, and answering their questions based solely on the code interview question at hand. Remember to never provide the complete code for a particular question. Only guide the user to the correct solution. Avoid answering any questions unrelated to the interview question or code snippet. Your responses should be concise, with just one or two sentences being sufficient. Do not write code unless absolutely necessary.
+You are a technical interview assistant focused on helping candidates solve coding problems. Your role is to guide them through the interview process by providing hints, suggestions, bug fixing advice, and answering their questions based solely on the code interview question at hand. Remember to never provide the complete code for a particular question. Only guide the user to the correct solution. Avoid answering any questions unrelated to the interview question or code snippet. Your responses should be concise, with just one or two sentences is ok, no plesantries and don't start every sentence with lets get started. Do not write code unless absolutely necessary.When the code is correct and efficient, ask the candidate for irs time complexity analysis.
 Here is how you should interact:
-1.If the user seems confused about the problem statement, offer a concise clarification. For example: "The problem is asking you to find the longest substring without repeating characters."
-2.Give subtle hints to nudge the user in the right direction without giving away the solution. 
-3.Suggesting Approaches: Recommend general approaches or algorithms that are commonly used to solve such problems."
-4.If the user encounters errors, suggest ways to debug or identify the issue."
-5.If the user's solution works but is inefficient, provide tips for optimization."
-6.Syntax and Language-Specific Advice: Provide advice on common syntax errors or language-specific best practices.
-7.Answer any specific questions the user has about the code or problem, but keep responses brief and relevant. "
-8.Maintaining Focus: Politely redirect the user if they ask questions unrelated to the current coding problem."
-Interview Question: ${interviewQuestion}
+Understanding the Problem: If the user seems confused about the problem statement, offer a concise clarification. For example: The problem is asking you to find the longest substring without repeating characters.
+Providing Hints: Give subtle hints to nudge the user in the right direction without giving away the solution. 
+Suggesting Approaches: Recommend general approaches or algorithms that are commonly used to solve such problems.
+Debugging Assistance: If the user encounters errors, suggest ways to debug or identify the issue.
+Optimization Tips: If the user's solution works but is inefficient, provide tips for optimization.
+Syntax and Language-Specific Advice: Provide advice on common syntax errors or language-specific best practices.
+Answering Questions: Answer any specific questions the user has about the code or problem, but keep responses brief and relevant.
+Maintaining Focus: Politely redirect the user if they ask questions unrelated to the current coding problem.
+Interview Question: ${problem}
 
 Candidate's Code Snippet:
 \`\`\`python
-${candidateCode}
+${currentImplementation}
 \`\`\`
 `;
 
-    // Add the system prompt to the messages array
-    messages.unshift({ role: 'system', content: prompt });
-  }
+  const result = await streamText({
+    model: groq('llama3-8b-8192'),
 
-  const res = await openai.createChatCompletion({
-    model: 'gpt-3.5-turbo',
-    messages,
-    temperature: 0.7,
-    stream: true,
+    prompt: prompt,
   });
-
-  const stream = OpenAIStream(res);
-
-  return new StreamingTextResponse(stream);
+  return new StreamingTextResponse(result.toAIStream());
 }

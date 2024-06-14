@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Editor, { OnMount } from "@monaco-editor/react";
 import { Skeleton } from "../ui/skeleton";
 import useCompilerStore from "@/store/editor-store";
@@ -6,8 +6,9 @@ import * as monaco from "monaco-editor";
 import { Card, CardContent, CardFooter } from "../ui/card";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { Check, MessageCircleX, RotateCw, SparkleIcon, Sparkles, X } from "lucide-react";
+import { Check, Loader2, MessageCircleX, RotateCw, SparkleIcon, Sparkles, X } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
+import { useChat } from '@ai-sdk/react';
 
 const EditorLoadingSkeleton = () => {
   return (
@@ -31,15 +32,20 @@ interface CodeEditorProps {
   language: string;
   problemId: number,
   driverCode: string
+  question: string
 }
 
-const CodeEditor = ({  language, problemId, driverCode }: CodeEditorProps) => {
+const CodeEditor = ({ driverCode, question }: CodeEditorProps) => {
   const { code, setCode } = useCompilerStore();
   const [dialogVisible, setDialogVisible] = useState(false);
   const [dialogPosition, setDialogPosition] = useState({ lineNumber: 0, column: 0 });
   const [editorInstance, setEditorInstance] = useState<monaco.editor.IStandaloneCodeEditor | null>(null);
   const [inputValue, setInputValue] = useState("");
   const monacoRef = useRef<typeof monaco | null>(null);
+
+  useEffect(() => {
+    setCode(driverCode);
+  }, [driverCode, setCode]); ``
 
   const handleEditorMount: OnMount = (editor, monacoInstance) => {
     setEditorInstance(editor);
@@ -72,12 +78,28 @@ const CodeEditor = ({  language, problemId, driverCode }: CodeEditorProps) => {
     }
   };
 
+  const {
+    messages,
+    input,
+    handleSubmit,
+    handleInputChange,
+    isLoading,
+    error,
+    stop,
+  } = useChat({
+    api: '/api/openai',
+    body: {
+      currentImplementation: code,
+      problem: question,
+    },
+  });
+
 
 
   return (
     <div className="overlay overflow-hidden w-full h-full shadow-sm rounded-md relative">
-       <Editor
-          options={{
+      <Editor
+        options={{
           minimap: {
             enabled: false,
           },
@@ -89,8 +111,8 @@ const CodeEditor = ({  language, problemId, driverCode }: CodeEditorProps) => {
         theme="vs-dark"
         language="python"
         loading={<EditorLoadingSkeleton />}
-        value={code || driverCode} 
-        onChange={(newValue) => setCode(newValue || '')} 
+        value={code}
+        onChange={(newValue) => setCode(newValue || '')}
         onMount={handleEditorMount}
       />
 
@@ -119,36 +141,50 @@ const CodeEditor = ({  language, problemId, driverCode }: CodeEditorProps) => {
               <X className='font-semibold' size={18} />
             </div>
           </div>
-          <div className="my-2 flex items-center gap-2">
+          <form onSubmit={handleSubmit} className="my-2 flex items-center gap-2">
             <Input
               type="text"
               placeholder="Ask the assistant..."
-              value={inputValue}
+              value={input}
               className="w-full "
-              onChange={(e) => setInputValue(e.target.value)}
+              onChange={handleInputChange}
             />
-            <Button className="flex items-center gap-1">
-              <span>Generate</span>
-              <Sparkles size={13} color="white" />
+            <Button type="submit" className="flex items-center gap-1">
+              {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> :
+                <>
+                  <Sparkles size={13} color="white" />
+                  <span>Ask AI</span>
+                </>
+              }
             </Button>
-          </div>
+          </form>
 
-          {/* <div className="my-4">
-            <p className="font-semibold text-gray-800 text-start text-sm">Answer</p>
-            <p className=" text-sm">
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-            </p>
-          </div>
-          <div className="mt-4 flex items-center gap-2">
-            <Button className="flex items-center gap-1">
-              <span>Accept</span>
-              <Check size={13} color="white" />
-            </Button>
-            <Button className="flex items-center gap-1" variant="outline">
-              <span>Regenerate</span>
-              <RotateCw size={13} color="black" />
-            </Button>
-          </div> */}
+          {messages.length > 0 ? (
+            <>
+              <div className="my-4">
+                <p className="font-semibold text-gray-800 text-start text-sm">Answer</p>
+                {messages.map((message) => {
+                  if (message.role === "assistant") {
+                    return <p className="text-sm" key={message.role}>{message.content}</p>;
+                  }
+                  return null;
+                })}
+              </div>
+              <div className="mt-4 flex items-center gap-2">
+                <Button onClick={handleAccept} className="flex items-center gap-1">
+                  <span>Accept</span>
+                  <Check size={13} color="white" />
+                </Button>
+                <Button className="flex items-center gap-1" variant="outline">
+                  <span>Regenerate</span>
+                  <RotateCw size={13} color="black" />
+                </Button>
+              </div>
+            </>
+          ) : (
+            ''
+          )}
+
 
         </Card>
       )}
