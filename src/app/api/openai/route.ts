@@ -37,7 +37,6 @@ ${currentImplementation}
 
   const result = await streamText({
     model: groq('llama3-8b-8192'),
-
     prompt: prompt,
   });
   return new StreamingTextResponse(result.toAIStream());

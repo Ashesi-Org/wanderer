@@ -1,5 +1,5 @@
 "use client";
-import ChatInput from "@/components/chat-input.jsx";
+import ChatInput from "@/components/chat-input";
 import CodeEditor from "@/components/editor/code-editor";
 import OutputSection from "@/components/output-section";
 import ProblemDescription from "@/components/problems-list/problem-description";
