@@ -17,26 +17,40 @@ import {
     SheetTrigger,
     SheetHeader,
     SheetDescription,
-    SheetTitle,
-} from '@/components/ui/sheet';
-import { Input } from '@/components/ui/input';
-import { Search } from 'lucide-react';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-import { CustomDialog } from '@/components/shared/custom-dialog';
-import ProblemList from '@/components/problems-list/problem-list';
-import Link from 'next/link';
-import { TooltipWrapper } from '@/components/utils/tooltip-wrapper';
-import useCompilerStore from '@/store/editor-store';
-import { usePathname } from 'next/navigation';
+    SheetTitle
+} from "@/components/ui/sheet";
+import { Input } from "@/components/ui/input";
+import { Search } from "lucide-react";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { CustomDialog } from "@/components/shared/custom-dialog";
+import ProblemList from "@/components/problems-list/problem-list";
+import Link from 'next/link'
+import { TooltipWrapper } from "@/components/utils/tooltip-wrapper";
+import useCompilerStore from "@/store/editor-store";
+import { usePathname } from 'next/navigation'
+import { UserContext } from "@/contexts/userContext";
+import { useContext } from "react";
+
+
 
 const Navbar = () => {
     const { code, running, outputDetails, handleCompile } = useCompilerStore();
+    const { user:currentUser } = useContext(UserContext);
+
+    
+    const pathname = usePathname()
+    const args = pathname.split("/");
+
+    //TODO: GET THESE FROM THE ACTIVE CHALLENGE AND SESSION STORE BUT FOR NOW:  Destructure challengeId and sessionId based on the technical route
+    const [challengeId, sessionId] = args[1] === "technical" ? [args[2], args[4]] : ['0', ""];
+
 
     const runCode = () => {
-        handleCompile(code, '', 71, 11, 1, 'b2d8c1a6-e811-4b1e-b764-7a0ec0aa9c74');
+        console.log("running code", code, challengeId, sessionId, currentUser?.id);
+        handleCompile(code, '', 71, parseInt(challengeId), currentUser?.id, sessionId);
     };
+    
 
-    const pathname = usePathname();
 
     return (
         <header
@@ -156,7 +170,7 @@ const Navbar = () => {
                         </Dialog>
                     )}
 
-                    <UserNav />
+                    <UserNav user={currentUser} />
                 </div>
             </div>
         </header>

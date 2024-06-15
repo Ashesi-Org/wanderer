@@ -4,13 +4,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import Draggable from 'react-draggable';
 import socketIOClient from 'socket.io-client';
 
-const VideoAudioRecorder = () => {
+const VideoAudioRecorder = (sessionId, userId) => {
   const socket = React.useMemo(
-    () => socketIOClient('http://localhost:4000'),
+    () => socketIOClient('172.166.224.130:4000'),
     []
   );
-  const sessionId = 'b2d8c1a6-e811-4b1e-b764-7a0ec0aa9c74';
-  const userId = 1;
+
   const [recording, setRecording] = useState(false);
   const [audioChunks, setAudioChunks] = useState([]);
   const [mediaRecorder, setMediaRecorder] = useState(null);
@@ -19,6 +18,7 @@ const VideoAudioRecorder = () => {
   const [isMaximized, setIsMaximized] = useState(false);
   const [videoStream, setVideoStream] = useState(null);
   const videoRef = useRef(null);
+  const draggableRef = useRef(null);
 
   useEffect(() => {
     if (recording) {
@@ -188,8 +188,9 @@ const VideoAudioRecorder = () => {
   }
 
   return (
-    <Draggable>
+    <Draggable nodeRef={draggableRef}>
       <div
+        ref={draggableRef}
         className={`z-10 fixed bottom-4 right-4 bg-white border shadow-lg ${
           isMinimized ? 'h-12 w-40' : 'h-auto w-auto'
         } ${isMaximized ? 'h-auto w-auto' : ''} rounded-lg`}

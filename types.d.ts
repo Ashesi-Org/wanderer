@@ -1,16 +1,28 @@
-type User = {
-   userId: string,
-   email: string,
-   firstName: string,
-   lastName: string,
-   role: string,
-   avatarUrl: string,
-   bio: string,
-   mfaEnabled: boolean,
-   verified: boolean,
-   phoneNumber: string
 
-}
+type AuthProvider = {
+    id: number;
+    userId: number;
+    googleId: string;
+    createdAt: string;
+    updatedAt: string;
+};
+
+type User = {
+    id: number;
+    email: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+    role: string;
+    createdAt: string;
+    updatedAt: string;
+    phoneNumber: string | null;
+    bio: string | null;
+    profileImage: string;
+    linkedIn: string | null;
+    mfaEnabled: boolean;
+    AuthProvider: AuthProvider[];
+};
 
 
 type PracticeSession = {
