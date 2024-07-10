@@ -1,20 +1,20 @@
-"use client";
-import ChatInput from "@/components/chat-input";
-import CodeEditor from "@/components/editor/code-editor";
-import OutputSection from "@/components/output-section";
-import ProblemDescription from "@/components/problems-list/problem-description";
-import VideoAudioRecorder from "../../../components/video-frame/video-frame";
+'use client';
+import ChatInput from '@/components/chat-input';
+import CodeEditor from '@/components/editor/code-editor';
+import OutputSection from '@/components/output-section';
+import ProblemDescription from '@/components/problems-list/problem-description';
+import VideoAudioRecorder from '../../../components/video-frame/video-frame';
 
 import {
     ResizableHandle,
     ResizablePanel,
     ResizablePanelGroup,
-} from "@/components/ui/resizable"
-import { TooltipWrapper } from "@/components/utils/tooltip-wrapper";
-import { api } from "@/lib/api";
-import { TestCase } from "@/types";
-import { Mic, Minus, RotateCcw, Send } from "lucide-react";
-import { useQuery } from "react-query";
+} from '@/components/ui/resizable';
+import { TooltipWrapper } from '@/components/utils/tooltip-wrapper';
+import { api } from '@/lib/api';
+import { TestCase } from '@/types';
+import { Minus, RotateCcw } from 'lucide-react';
+import { useQuery } from 'react-query';
 
 interface ProblemDescriptionProps {
     challenge_id?: number;
@@ -35,24 +35,18 @@ interface ProblemDescriptionProps {
     loading: boolean;
 }
 
-
 const Playground = () => {
-
     const { data: problem, isLoading } = useQuery('activeProblem', async () => {
-        const response = await api.get(`/api/challenge/${13}`)
+        const response = await api.get(`/api/challenge/${2}`);
 
         return response.data as ProblemDescriptionProps;
-    })
+    });
 
     return (
         <>
             {/* <VideoAudioRecorder /> */}
             <div className="h-screen">
-                <ResizablePanelGroup
-
-                    direction="horizontal"
-                    className="w-full border "
-                >
+                <ResizablePanelGroup direction="horizontal" className="w-full border ">
                     <ResizablePanel className="" defaultSize={40}>
                         <ResizablePanelGroup direction="vertical">
                             <ResizablePanel defaultSize={50}>
@@ -67,17 +61,21 @@ const Playground = () => {
                                     <span className="text-sm font-semibold">Assistant</span>
                                     <div className="flex items-center gap-2">
                                         <span className="cursor-pointer">
-                                            <TooltipWrapper text={'Clear chat'} component={<RotateCcw size={16} />} />
-
+                                            <TooltipWrapper
+                                                text={'Clear chat'}
+                                                component={<RotateCcw size={16} />}
+                                            />
                                         </span>
                                         <span className="cursor-pointer">
-                                            <TooltipWrapper text={'Collapse'} component={<Minus size={16} />} />
-
+                                            <TooltipWrapper
+                                                text={'Collapse'}
+                                                component={<Minus size={16} />}
+                                            />
                                         </span>
                                     </div>
                                 </div>
                                 <div className="flex flex-col h-full items-center">
-                                    <ChatInput interviewQuestion={problem?.content ?? ""} />
+                                    <ChatInput interviewQuestion={problem?.content ?? ''} />
                                 </div>
                             </ResizablePanel>
                         </ResizablePanelGroup>
@@ -86,25 +84,30 @@ const Playground = () => {
                     <ResizablePanel defaultSize={60}>
                         <ResizablePanelGroup direction="vertical">
                             <ResizablePanel className="p-[0.5rem]" defaultSize={85}>
-
                                 <div className="flex flex-col h-full items-center justify-center rounded-xl">
-
-                                    <CodeEditor question={problem?.content!} language="python" driverCode={problem?.driverCode || ""} problemId={problem?.challenge_id!} />
+                                    <CodeEditor
+                                        question={problem?.content!}
+                                        language="python"
+                                        driverCode={problem?.driverCode || ''}
+                                        problemId={problem?.challenge_id!}
+                                    />
                                 </div>
                             </ResizablePanel>
                             <ResizableHandle withHandle />
                             <ResizablePanel className="p-2" defaultSize={15}>
                                 <div className="w-full h-full items-center">
-                                    <OutputSection testCases={problem?.sampleTestCase as TestCase[]} />
+                                    <OutputSection
+                                        testCases={problem?.sampleTestCase as TestCase[]}
+                                    />
                                 </div>
                             </ResizablePanel>
                         </ResizablePanelGroup>
                     </ResizablePanel>
                     <ResizableHandle />
-
                 </ResizablePanelGroup>
-            </div></>
-    )
-}
+            </div>
+        </>
+    );
+};
 
 export default Playground;

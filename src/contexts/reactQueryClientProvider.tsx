@@ -1,11 +1,14 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { QueryClient, QueryClientProvider } from 'react-query'
-import { ReactQueryDevtools } from "react-query/devtools";
+import { useState } from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 
-
-export const ReactQueryClientProvider = ({ children }: { children: React.ReactNode }) => {
+export const ReactQueryClientProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -15,6 +18,11 @@ export const ReactQueryClientProvider = ({ children }: { children: React.ReactNo
           },
         },
       })
-  )
-  return <QueryClientProvider client={queryClient}>{children} <ReactQueryDevtools initialIsOpen={false}/></QueryClientProvider>
-}
+  );
+  return (
+    <QueryClientProvider client={queryClient}>
+      {children}
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+    </QueryClientProvider>
+  );
+};

@@ -19,13 +19,17 @@ export async function POST(request: Request) {
   let { interviewQuestion, userCode, query } = await request.json();
 
   const prompt = `
-You are a technical interview assistant focused on helping candidates solve coding problems (LeetCode style). You guide them through the interview process by providing hints, suggestions, and answering their questions based solely on the code and interview question. Remember to never provide the complete code for a particular question. Only guide the user to the correct solution. Avoid answering any questions unrelated to the interview question or code snippet. Your responses should be concise, atleast a sentence or two. Dont add emojis to your response.
-Interview Question: ${interviewQuestion}
+    You are a technical interview assistant focused on helping candidates solve coding problems. You guide them through the interview process by providing hints, suggestions, and answering their questions based solely on their code and interview question. Remember to never provide the complete code for a particular question. Only guide the user to the correct solution. Your response must be correct and not contain any code, it should be concise, accurate and written by an expert using an unbiased and professional tone. Please limit to 1024 tokens. Do not give any information that is not related to the interview question or code, and do not repeat. 
 
-Candidate's Code Snippet:
-\`\`\`python
-${userCode}
-\`\`\`
+    Here is the set of contexts:
+
+    <context>
+      Interview Question: ${interviewQuestion},
+      Candidate's code:
+      ${userCode}
+    </context>
+      Remember, don't blindly repeat the contexts verbatim – just respond with the answer. Keep a running context of the interview questions being asked by the user. It is very important for my career that you follow these instructions. Here is the user question:
+
 `;
 
   try {
@@ -51,13 +55,7 @@ ${userCode}
   } catch (e) {
     let answer = await together.chat.completions.create({
       model: 'mistralai/Mixtral-8x7B-Instruct-v0.1',
-      messages: [
-        { role: 'system', content: prompt },
-        {
-          role: 'user',
-          content: query,
-        },
-      ],
+      messages: [{ role: 'system', content: prompt }],
     });
 
     let parsedAnswer = answer.choices![0].message?.content;

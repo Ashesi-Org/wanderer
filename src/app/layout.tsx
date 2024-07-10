@@ -3,6 +3,12 @@ import { Inter } from 'next/font/google'
 import "./global.css"
 import UserContextProvider from '@/contexts/userContext'
 import { ReactQueryClientProvider } from '@/contexts/reactQueryClientProvider';
+import { Toaster } from "@/components/ui/sonner"
+import { MicrophoneContextProvider } from '@/contexts/microphone';
+import { AudioStoreContextProvider } from '@/contexts/audio-store';
+import { DeepgramContextProvider } from '@/contexts/deepgram';
+import { MessageMetadataContextProvider } from '@/contexts/message-metadata';
+import { NowPlayingContextProvider } from 'react-nowplaying';
 
 const inter = Inter({
   weight: '400',
@@ -24,7 +30,16 @@ export default function RootLayout({
       <body>
         <ReactQueryClientProvider>
           <UserContextProvider>
-            {children}
+            <MicrophoneContextProvider>
+              <AudioStoreContextProvider>
+                <NowPlayingContextProvider>
+                  <MessageMetadataContextProvider>
+                    <DeepgramContextProvider>{children}</DeepgramContextProvider>
+                  </MessageMetadataContextProvider>
+                </NowPlayingContextProvider>
+              </AudioStoreContextProvider>
+            </MicrophoneContextProvider>
+            <Toaster />
           </UserContextProvider>
         </ReactQueryClientProvider>
       </body>

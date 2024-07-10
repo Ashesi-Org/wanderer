@@ -12,7 +12,7 @@ import {
     getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table"
-import { ArrowUpDown, ChevronDown } from "lucide-react"
+import { ArrowUpDown, ChevronDown, Loader2 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -254,7 +254,9 @@ export default function ProblemsTable() {
                                         colSpan={columns.length}
                                         className="h-24 text-center"
                                     >
-                                        No results.
+                                        <div className="w-full flex justify-center">
+                                            <Loader2 className=" h-6 w-6 animate-spin" />
+                                        </div>
                                     </TableCell>
                                 </TableRow>
                             )}
