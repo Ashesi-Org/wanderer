@@ -26,3 +26,5 @@ Cypress.Commands.add('monacoEditorTriggerKeybinding', (selector, keybinding) => 
     }
   });
 });
+
+

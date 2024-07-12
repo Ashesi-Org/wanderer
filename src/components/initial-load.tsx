@@ -10,7 +10,7 @@ export const InitialLoad = ({
 }) => {
     return (
         <>
-            <div className="flex flex-col items-center mt-12">
+            <div className="flex flex-col items-center mt-12 initial-load">
                 <div className="flex justify-center">
                     <Bot className="w-10 h-10 text-center text-slate-600" />
                 </div>

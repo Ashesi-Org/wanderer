@@ -15,7 +15,7 @@ const OutputSection = ({testCases}:TestCasesProps) => {
     return (
 
         <div className="w-full h-full overflow-y-scroll custom-scrollbar px-3 py-[0.5rem]">
-            <Tabs defaultValue="cases" className="">
+            <Tabs defaultValue="cases" className="tabs">
                 <TabsList className="grid w-[270px] grid-cols-2">
 
                     <TabsTrigger className="" value="cases">

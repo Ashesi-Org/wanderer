@@ -1,6 +1,7 @@
 import React from 'react';
 import CodeEditor from '../../src/components/editor/code-editor';
 import { RecoilRoot } from 'recoil';
+import '../../src/app/global.css';
 
 describe('CodeEditor Component', () => {
   const props = {

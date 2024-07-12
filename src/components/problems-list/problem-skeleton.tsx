@@ -2,7 +2,7 @@ import { Skeleton } from "../ui/skeleton";
 
 export const ProblemSkeleton = () => {
     return (
-        <div className="overlay overflow-hidden w-full h-full rounded-md">
+        <div className="skeleton overlay overflow-hidden w-full h-full rounded-md">
             <div className="flex flex-col ">
                 <Skeleton className="h-3 bg-[#eee] w-[170px] rounded-md" />
                 <div className="flex justify-between my-3">
