@@ -31,3 +31,23 @@ export interface TestCase {
 export interface TestCasesProps {
     testCases: TestCase[]
 }
+
+
+export interface ProblemDescriptionProps {
+    challenge_id?: number;
+    title?: string;
+    description?: string;
+    difficulty?: string;
+    content?: string;
+    constraints?: string;
+    assumptions?: string[];
+    topicTags?: string[];
+    similarQuestions?: string[];
+    sampleTestCase?: any;
+    allTestCases?: string[];
+    driverCode?: string;
+    hints?: string[];
+    created_at?: string;
+    updated_at?: string;
+    loading: boolean;
+}

@@ -1,3 +1,4 @@
+import { formatObjectAsString } from "@/lib/utils";
 import { Badge } from "../ui/badge";
 import { ProblemSkeleton } from "./problem-skeleton";
 interface ProblemDescriptionProps {
@@ -22,6 +23,10 @@ interface ProblemDescriptionProps {
 
 
 const ProblemDescription = ({ title, description, content, difficulty, constraints, assumptions, sampleTestCase, loading }: ProblemDescriptionProps) => {
+
+    const formatValue = (value:any) => {
+        return typeof value === 'object' && value !== null ? formatObjectAsString(value) : value;
+    };
 
     return (
         <>
@@ -63,24 +68,24 @@ const ProblemDescription = ({ title, description, content, difficulty, constrain
                     <div className="examples flex flex-col gap-y-2 my-4">
                         {sampleTestCase && sampleTestCase.length > 0 && sampleTestCase.map((example: any, index: number) => (
                             <div className='mt-4' key={index}>
-                                <div>
-                                    <p className='font-semibold text-sm'>Example {index + 1}: </p>
-                                    <div className='example-card bg-secondary rounded-sm'>
-                                        <pre>
-                                            <strong className='text-sm'>Input:  </strong>
-                                            <span className="text-sm">{example.input}</span>
-                                            <br />
-                                            <strong className='text-sm'>Output:  </strong>
-                                            <span className="text-sm">{example.output}</span>
-                                            <br />
-                                            <strong className='text-sm'>Explanation:  </strong>
-                                            <span className="text-sm">{example.explanation ? example.explanation : ''}</span>
-                                        </pre>
-                                    </div>
+                            <div>
+                                <p className='font-semibold text-sm'>Example {index + 1}: </p>
+                                <div className='example-card bg-secondary rounded-sm'>
+                                <pre>
+                                    <strong className='text-sm'>Input:  </strong>
+                                    <span className="text-sm">{formatValue(example.input)}</span>
+                                    <br />
+                                    <strong className='text-sm'>Output:  </strong>
+                                    <span className="text-sm">{formatValue(example.output)}</span>
+                                    <br />
+                                    <strong className='text-sm'>Explanation:  </strong>
+                                    <span className="text-sm">{example.explanation ? formatValue(example.explanation) : ''}</span>
+                                </pre>
                                 </div>
                             </div>
+                            </div>
                         ))}
-
+                        
                         {/* Constraints */}
                         <div className='my-3'>
                             <div className='text-sm font-semibold mb-2'>Constraints:</div>

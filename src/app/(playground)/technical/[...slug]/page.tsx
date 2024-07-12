@@ -1,20 +1,41 @@
+<<<<<<< HEAD:src/app/(playground)/technical/page.tsx
 'use client';
 import ChatInput from '@/components/chat-input';
 import CodeEditor from '@/components/editor/code-editor';
 import OutputSection from '@/components/output-section';
 import ProblemDescription from '@/components/problems-list/problem-description';
 import VideoAudioRecorder from '../../../components/video-frame/video-frame';
+=======
+"use client";
+import ChatInput from "@/components/chat-input";
+import CodeEditor from "@/components/editor/code-editor";
+import OutputSection from "@/components/output-section";
+import ProblemDescription from "@/components/problems-list/problem-description";
+import VideoAudioRecorder from "../../../../components/video-frame/video-frame";
+>>>>>>> ba65b60 (✨ Create Zustand store to manage active challenge):src/app/(playground)/technical/[...slug]/page.tsx
 
 import {
     ResizableHandle,
     ResizablePanel,
     ResizablePanelGroup,
+<<<<<<< HEAD:src/app/(playground)/technical/page.tsx
 } from '@/components/ui/resizable';
 import { TooltipWrapper } from '@/components/utils/tooltip-wrapper';
 import { api } from '@/lib/api';
 import { TestCase } from '@/types';
 import { Minus, RotateCcw } from 'lucide-react';
 import { useQuery } from 'react-query';
+=======
+} from "@/components/ui/resizable"
+import { TooltipWrapper } from "@/components/utils/tooltip-wrapper";
+import { api } from "@/lib/api";
+import { TestCase } from "@/types";
+import { Minus, RotateCcw } from "lucide-react";
+import { useQuery } from "react-query";
+import { useActiveChallengeStore } from "@/store/active-challenge-store";
+import { useRouter } from "next/navigation";
+
+>>>>>>> ba65b60 (✨ Create Zustand store to manage active challenge):src/app/(playground)/technical/[...slug]/page.tsx
 
 interface ProblemDescriptionProps {
     challenge_id?: number;
@@ -35,12 +56,31 @@ interface ProblemDescriptionProps {
     loading: boolean;
 }
 
+<<<<<<< HEAD:src/app/(playground)/technical/page.tsx
 const Playground = () => {
     const { data: problem, isLoading } = useQuery('activeProblem', async () => {
         const response = await api.get(`/api/challenge/${2}`);
 
         return response.data as ProblemDescriptionProps;
     });
+=======
+
+const Playground = ({ params }: { params: { slug: string } }) => {
+
+    const router = useRouter();
+    const {activeChallengeId} = useActiveChallengeStore();
+    const challengeId = activeChallengeId ? activeChallengeId : params.slug?.[0];
+
+    if(!challengeId) {
+        router.push('/challenges')
+        return <></>
+    };
+    const { data: problem, isLoading } = useQuery('activeProblem', async () => {
+        const response = await api.get(`/api/challenge/${challengeId}`)
+
+        return response.data as ProblemDescriptionProps;
+    })
+>>>>>>> ba65b60 (✨ Create Zustand store to manage active challenge):src/app/(playground)/technical/[...slug]/page.tsx
 
     return (
         <>

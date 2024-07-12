@@ -1,5 +1,6 @@
 "use client"
 import * as React from "react"
+import { useRouter } from 'next/navigation'
 import {
     ColumnDef,
     ColumnFiltersState,
@@ -37,6 +38,8 @@ import {
 import { Badge } from "@/components/ui/badge"
 import { useQuery } from "react-query";
 import { api } from "@/lib/api"
+import { useActiveChallengeStore } from "@/store/active-challenge-store"
+import { createSlug } from "@/lib/utils"
 
 type Difficulty = "Easy" | "Medium" | "Hard";
 
@@ -142,6 +145,15 @@ export default function ProblemsTable() {
         const response = await api.get(`/api/challenges`)
         return response.data;
     })
+    const router = useRouter();
+    const { activeChallengeId, setActiveChallenge } = useActiveChallengeStore();
+
+    const handleChallengeSelection = async (challenge: any) => {
+        console.log(challenge.challenge_id)
+        setActiveChallenge(challenge.challenge_id);
+        router.push(`/technical/${challenge.challenge_id}/${createSlug(challenge.title)}`, {scroll:false});
+
+    }
 
 
     const [sorting, setSorting] = React.useState<SortingState>([])
@@ -237,6 +249,8 @@ export default function ProblemsTable() {
                                     <TableRow
                                         key={row.id}
                                         data-state={row.getIsSelected() && "selected"}
+                                        onClick={() => handleChallengeSelection(row.original)}
+                                        className="cursor-pointer"
                                     >
                                         {row.getVisibleCells().map((cell) => (
                                             <TableCell key={cell.id}>
