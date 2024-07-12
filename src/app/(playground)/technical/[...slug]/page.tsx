@@ -4,7 +4,7 @@ import ChatInput from '@/components/chat-input';
 import CodeEditor from '@/components/editor/code-editor';
 import OutputSection from '@/components/output-section';
 import ProblemDescription from '@/components/problems-list/problem-description';
-import VideoAudioRecorder from '../../../components/video-frame/video-frame';
+import VideoAudioRecorder from '@/components/video-frame/video-frame';
 
 import {
     ResizableHandle,
