@@ -22,6 +22,7 @@ const OutputStatus = () => {
     };
 
     const executionFeedback = () => {
+
         const somePassed = testResults?.some(item => item.status.id === 11 || item.status.id === 4);
         const allPassed = testResults?.every(item => item.status.id === 3);
         if (somePassed) {

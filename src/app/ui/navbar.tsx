@@ -17,40 +17,61 @@ import {
     SheetTrigger,
     SheetHeader,
     SheetDescription,
-    SheetTitle
-} from "@/components/ui/sheet";
-import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { CustomDialog } from "@/components/shared/custom-dialog";
-import ProblemList from "@/components/problems-list/problem-list";
-import Link from 'next/link'
-import { TooltipWrapper } from "@/components/utils/tooltip-wrapper";
-import useCompilerStore from "@/store/editor-store";
-import { usePathname } from 'next/navigation'
-import { UserContext } from "@/contexts/userContext";
-import { useContext } from "react";
-
-
+    SheetTitle,
+} from '@/components/ui/sheet';
+import { Input } from '@/components/ui/input';
+import { Search } from 'lucide-react';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { CustomDialog } from '@/components/shared/custom-dialog';
+import ProblemList from '@/components/problems-list/problem-list';
+import Link from 'next/link';
+import { TooltipWrapper } from '@/components/utils/tooltip-wrapper';
+import useCompilerStore from '@/store/editor-store';
+import { usePathname } from 'next/navigation';
+import { UserContext } from '@/contexts/userContext';
+import { useContext } from 'react';
 
 const Navbar = () => {
-    const { code, running, outputDetails, handleCompile } = useCompilerStore();
-    const { user:currentUser } = useContext(UserContext);
+    const { code, running, submitting, handleCompile, handleSubmit } =
+        useCompilerStore();
+    const { user: currentUser } = useContext(UserContext);
 
-    
-    const pathname = usePathname()
-    const args = pathname.split("/");
+    const pathname = usePathname();
+    const args = pathname.split('/');
 
     //TODO: GET THESE FROM THE ACTIVE CHALLENGE AND SESSION STORE BUT FOR NOW:  Destructure challengeId and sessionId based on the technical route
-    const [challengeId, sessionId] = args[1] === "technical" ? [args[2], args[4]] : ['0', ""];
-
+    const [challengeId, sessionId] =
+        args[1] === 'technical' ? [args[2], args[4]] : ['0', ''];
 
     const runCode = () => {
-        console.log("running code", code, challengeId, sessionId, currentUser?.id);
-        handleCompile(code, '', 71, parseInt(challengeId), currentUser?.id, sessionId);
+        console.log('running code', code, challengeId, sessionId, currentUser?.id);
+        handleCompile(
+            code,
+            '',
+            71,
+            parseInt(challengeId),
+            currentUser?.id,
+            sessionId
+        );
     };
-    
 
+    const submitCode = () => {
+        console.log(
+            'submitting code',
+            code,
+            challengeId,
+            sessionId,
+            currentUser?.id
+        );
+        handleSubmit(
+            code,
+            '',
+            71,
+            parseInt(challengeId),
+            currentUser?.id,
+            sessionId
+        );
+    };
 
     return (
         <header
@@ -123,7 +144,8 @@ const Navbar = () => {
                         ) : (
                             <Button
                                 onClick={runCode}
-                                className="h-auto w-fit flex items-center gap-1"
+                                className={`${submitting ? 'hidden' : 'flex'
+                                    } h-auto w-fit items-center gap-1`}
                             >
                                 <span>
                                     <Play size={14} />
@@ -132,19 +154,33 @@ const Navbar = () => {
                             </Button>
                         )}
 
-                        <Button
-                            className="h-auto w-fit flex items-center gap-1"
-                            variant="secondary"
-                        >
-                            <span>
-                                <BugPlay size={14} />
-                            </span>
-                            <span>Submit</span>
-                        </Button>
+                        {submitting ? (
+                            <Button
+                                className="h-auto w-fit flex items-center gap-1"
+                                variant="secondary"
+                                disabled
+                            >
+                                <span>
+                                    <Loader2 className=" h-4 w-4 animate-spin" />
+                                </span>
+                                <span>Submitting</span>
+                            </Button>
+                        ) : (
+                            <Button
+                                className={`${running ? 'hidden' : 'flex'
+                                    } h-auto w-fit items-center gap-1`}
+                                variant="secondary"
+                                onClick={submitCode}
+                            >
+                                <span>
+                                    <BugPlay size={14} />
+                                </span>
+                                <span>Submit</span>
+                            </Button>
+                        )}
                     </div>
                 )}
                 <div className="flex gap-3 items-center">
-
                     {pathname !== '/challenges' && (
                         <div className="p-[0.65rem] cursor-pointer w-fit h-full bg-secondary rounded-md text-secondary-foreground hover:bg-secondary/80">
                             <TooltipWrapper

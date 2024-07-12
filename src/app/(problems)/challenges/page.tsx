@@ -172,21 +172,21 @@ export default function ProblemsTable() {
     const createSession = async (
 
     ) => {
-        
+
         setIsCreatingSession(true);
         setRulesAccepted(true);
         const response = await api.post(`/api/session`, {
             challengeId: selectedChallenge?.challenge_id,
             userId: 1,
         });
-               
+
         if (response.status === 201) {
             const data = response.data;
             console.log(data);
             setActiveChallenge(data?.practiceSession.challengeId);
             setIsCreatingSession(false);
             setShowDialog(false);
-        router.push(`/technical/${data?.practiceSession.challengeId}/${createSlug(selectedChallenge?.title as string)}/${data?.practiceSession.sessionId}`, {
+            router.push(`/technical/${data?.practiceSession.challengeId}/${createSlug(selectedChallenge?.title as string)}/${data?.practiceSession.sessionId}`, {
                 scroll: false,
             });
         } else {
@@ -353,27 +353,25 @@ export default function ProblemsTable() {
             <Dialog open={showDialog} onOpenChange={setShowDialog}>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>Accept Rules and Guidelines</DialogTitle>
+                        <DialogTitle> Rules and Guidelines</DialogTitle>
                         <DialogDescription>
                             Please read and accept the rules before proceeding.
                         </DialogDescription>
                     </DialogHeader>
                     <div className="py-4">
-                        <ul className="list-disc pl-5 space-y-2">
+                        <ul className="list-disc pl-5 space-y-3">
                             <li>
                                 {' '}
-                                0: Make sure you have access to mic and web cam for the
+                                Make sure you enable access to your <strong>mic</strong> and <strong>web cam </strong>for the
                                 interview.
                             </li>
                             <li>
                                 {' '}
-                                1: Make sure to take this practice in a well lit environment.
+                                Make sure to take this practice in a well lit environment.
                             </li>
-                            <li> 2: Do not share your code.</li>
-                            <li> 3: Complete the challenge within the given time.</li>
-                            <li> 4: Do not use any external help.</li>
-                            <li> 5: Do not navigate to other websites.</li>
-                            <li> 6: Do not use any malicious software.</li>
+                            <li> Complete the challenge within the given time.</li>
+                            <li> Do not seek for any external help.</li>
+                            <li> Do not navigate to other websites. Stay on the current tab</li>
                         </ul>
                     </div>
                     <DialogFooter>

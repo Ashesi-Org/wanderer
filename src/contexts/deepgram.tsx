@@ -205,7 +205,8 @@ const DeepgramContextProvider = ({ children }: DeepgramContextInterface) => {
             });
 
             connection.addListener(LiveTranscriptionEvents.Close, () => {
-                toast.error("The connection to Deepgram closed, we'll attempt to reconnect.");
+                // toast.error("The connection to Deepgram closed, we'll attempt to reconnect.");
+                console.error("The connection to Deepgram closed, we'll attempt to reconnect.");
                 setConnectionReady(false);
                 connection.removeAllListeners();
                 setConnection(undefined);

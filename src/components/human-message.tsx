@@ -1,9 +1,9 @@
 import { Button } from './ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
-import Markdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
+import { UserContext } from "@/contexts/userContext";
 import { Message } from 'ai';
 import { TextContent } from './text-content';
+import { useContext } from 'react';
 
 export const HumanMessage = ({
     message,
@@ -12,16 +12,19 @@ export const HumanMessage = ({
     message?: Message;
     text?: string;
 }) => {
+
+    const { user: currentUser } = useContext(UserContext);
+
     return (
         <>
             <div className="flex items-center gap-2 w-full rounded-md min-h-[60px]">
                 <Button variant="ghost" className="relative h-8 w-8 rounded-full">
                     <Avatar className="h-8 w-8">
                         <AvatarImage
-                            src="https://avatars.githubusercontent.com/u/79936608?v=4"
+                            src={currentUser?.profileImage}
                             alt="role-image"
                         />
-                        <AvatarFallback>SH</AvatarFallback>
+                        <AvatarFallback>{currentUser?.firstName}</AvatarFallback>
                     </Avatar>
                 </Button>
                 <div className="flex gap-2  rounded-md min-h-[60px]">

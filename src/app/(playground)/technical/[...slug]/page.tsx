@@ -43,15 +43,16 @@ interface ProblemDescriptionProps {
 const Playground = ({ params }: { params: { slug: string } }) => {
 
     const router = useRouter();
-    const {activeChallengeId} = useActiveChallengeStore();
+    const { activeChallengeId } = useActiveChallengeStore();
     const challengeId = activeChallengeId ? activeChallengeId : params.slug?.[0];
     const sessionId = params.slug?.[2];
     const userId = 1;
 
-    if(!challengeId) {
+    if (!challengeId) {
         router.push('/challenges')
         return <></>
     };
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const { data: problem, isLoading } = useQuery('activeProblem', async () => {
         const response = await api.get(`/api/challenge/${challengeId}`)
 
@@ -60,7 +61,7 @@ const Playground = ({ params }: { params: { slug: string } }) => {
 
     return (
         <>
-            <VideoAudioRecorder sessionId={sessionId} userId={userId}  />
+            {/* <VideoAudioRecorder sessionId={sessionId} userId={userId} /> */}
             <div className="h-screen">
                 <ResizablePanelGroup direction="horizontal" className="w-full border ">
                     <ResizablePanel className="" defaultSize={40}>
