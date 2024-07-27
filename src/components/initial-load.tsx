@@ -19,7 +19,7 @@ export const InitialLoad = ({
                     disabled={connecting}
                     onClick={() => !connecting && fn()}
                     type="submit"
-                    className="flex items-center gap-1"
+                    className="flex items-center gap-1 initialbtn"
                 >
                     {connecting ? (
                         <div className="w-full text-white h-full gap-2 items-center flex justify-center opacity-40 cursor-not-allowed">

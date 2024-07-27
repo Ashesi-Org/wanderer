@@ -1,0 +1,20 @@
+[
+  {
+    "challenge_id": "1",
+    "title": "Sample Challenge 1",
+    "difficulty": "Medium",
+    "topicTags": ["Algorithm", "Sorting"]
+  },
+  {
+    "challenge_id": "2",
+    "title": "Sample Challenge 2",
+    "difficulty": "Easy",
+    "topicTags": ["Data Structures", "LinkedList"]
+  },
+  {
+    "challenge_id": "3",
+    "title": "Sample Challenge 3",
+    "difficulty": "Hard",
+    "topicTags": ["Dynamic Programming", "Graph"]
+  }
+]
