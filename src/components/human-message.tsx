@@ -33,7 +33,7 @@ export const HumanMessage = ({
                         className="rounded-lg flex flex-col bg-zinc-200 p-3"
                     >
                         <div className="flex justify-between items-center mb-[0.15rem]">
-                            <span className="text-sm font-semibold">Simon Boateng</span>
+                            <span className="text-sm font-semibold">{currentUser?.firstName}</span>
                         </div>
                         <p className="text-sm">
                             <TextContent text={message?.content ?? text ?? ''} />

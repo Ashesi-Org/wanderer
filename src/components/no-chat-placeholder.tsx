@@ -1,6 +1,5 @@
-import { Mic, Bot, AtSign, Send } from 'lucide-react';
+import { Bot, Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { ChatRequestOptions } from 'ai';
 import { FormEvent } from 'react';
 

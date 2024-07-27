@@ -2,7 +2,6 @@ import { Button } from './ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Message } from 'ai';
 import { MessageAudio } from './message-audio';
-import { Loader2 } from 'lucide-react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 

@@ -9,7 +9,6 @@ import { Controls } from './controls';
 import useCompilerStore from '@/store/editor-store';
 import { useChat } from '@ai-sdk/react';
 import { Message } from 'ai';
-import { AssistantMessage } from './assistant-message';
 import { HumanMessage } from './human-message';
 import { useDeepgram } from '@/contexts/deepgram';
 import { useAudioStore } from '@/contexts/audio-store';
@@ -22,7 +21,6 @@ import {
   generateRandomString,
   utteranceText,
 } from '@/lib/helpers';
-import { systemContent } from '@/lib/constants';
 import { useMicVAD } from '@ricky0123/vad-react';
 import { MessageMetadata } from '@/lib/types';
 import {
@@ -31,9 +29,9 @@ import {
   LiveTranscriptionEvent,
   LiveTranscriptionEvents,
 } from '@deepgram/sdk';
-import { NoChatPlaceholder } from './no-chat-placeholder';
 import { InitialLoad } from './initial-load';
 import { ChatBubble } from './chat-bubble';
+import { toast } from 'sonner';
 
 export default function ChatInput({
   interviewQuestion,
@@ -271,6 +269,7 @@ export default function ChatInput({
 
     // get welcome audio
     requestWelcomeAudio();
+    toast.success('AI agent is connected!');
   }, [
     addMessageData,
     greetingMessage,
@@ -465,8 +464,6 @@ export default function ChatInput({
               </div>
 
             )}
-
-
 
           </>
         )}

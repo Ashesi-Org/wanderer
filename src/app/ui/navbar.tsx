@@ -75,19 +75,18 @@ const Navbar = () => {
 
     return (
         <header
-            className={`relative top-0 z-50 w-full bg-background border-b ${pathname === '/challenges' && 'p-1'
-                }`}
+            className={`relative top-0 z-50 w-full bg-background border-b ${pathname === '/challenges' || pathname === '/sessions' || pathname === "/analysis" ? 'p-2' : ''}`}
         >
             <div className="flex h-[48px] items-center justify-between px-4 md:px-4">
                 <div className="flex gap-4 items-center">
                     <Link className="flex items-center gap-1" href="#">
                         <MountainIcon
-                            className={`h-6 w-6 font-bold ${pathname == '/challenges' ? 'text-primary' : ''
+                            className={`h-6 w-6 font-bold ${pathname === '/challenges' || pathname === '/analysis' || pathname === '/sessions' ? 'text-primary' : ''
                                 }`}
                         />
                     </Link>
                     <Sheet>
-                        {pathname !== '/challenges' ? (
+                        {pathname !== '/challenges' && pathname !== '/sessions' && pathname !== '/analysis' ? (
                             <SheetTrigger asChild>
                                 <Button
                                     className="h-auto w-fit flex gap-2 items-center"
@@ -131,7 +130,7 @@ const Navbar = () => {
                         </SheetContent>
                     </Sheet>
                 </div>
-                {pathname !== '/challenges' && (
+                {pathname !== '/challenges' && pathname !== '/sessions' && pathname !== '/analysis' && (
                     <div className="flex justify-center items-center gap-2">
                         {running ? (
                             <Button

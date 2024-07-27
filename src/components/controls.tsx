@@ -4,7 +4,7 @@ import { useMicrophone } from '@/contexts/microphone';
 import { useNowPlaying } from 'react-nowplaying';
 import { useSubmit } from '@/lib/hooks/use-submit';
 import { Input } from './ui/input';
-import { Mic, AtSign, Send } from 'lucide-react';
+import { Mic, Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Audio } from 'react-loader-spinner'
 
@@ -78,7 +78,6 @@ export const Controls = ({
                                 <Input
                                     value={input}
                                     onChange={handleInputChange}
-                                    // startIcon={AtSign}
                                     className="flex-1 h-10 w-full"
                                     placeholder={`Press "/" for commands`}
                                 />

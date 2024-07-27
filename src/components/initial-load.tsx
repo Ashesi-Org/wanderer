@@ -23,7 +23,7 @@ export const InitialLoad = ({
                 >
                     {connecting ? (
                         <div className="w-full text-white h-full gap-2 items-center flex justify-center opacity-40 cursor-not-allowed">
-                            <Loader2 className=" h-4 w-4 animate-spin" />
+                            <Loader2 className="h-4 w-4 animate-spin" />
                             <span> Connecting..</span>
                         </div>
                     ) : (

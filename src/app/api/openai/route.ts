@@ -11,21 +11,20 @@ export async function POST(req: Request) {
 
   if (!problem) return new Response('Problem is required', { status: 400 });
   if (!currentImplementation)
-    return new Response('What is your current impelementation', {
+    return new Response('Impelementation required', {
       status: 400,
     });
 
   const prompt = `
-    You are a technical interview assistant focused on helping candidates solve coding problems. You guide them through the interview process by providing hints, suggestions, and answering their questions based solely on their code and interview question. Remember to never provide the complete code for a particular question. Only guide the user to the correct solution. Your response must be correct and not contain any code, it should be concise, accurate and written by an expert using an unbiased and professional tone. Please limit to 1024 tokens. Do not give any information that is not related to the interview question or code, and do not repeat. 
+    You are a technical interview assistant. Help candidates solve coding problems by providing brief hints and suggestions based on their code and the interview question. Do not provide complete code or the complete hint to the answer. Ensure responses are correct, concise, professional, and limited to three sentences. Focus only on the interview question or code and avoid repetition.
 
     Here is the set of contexts:
-
     <context>
       Interview Question: ${problem},
       Candidate's code:
       ${currentImplementation}
     </context>
-      Remember, don't blindly repeat the contexts verbatim – just respond with the answer. Keep a running context of the interview questions being asked by the user. It is very important for my career that you follow these instructions. Here is the user question:
+      Remember, don't blindly repeat the contexts verbatim – just respond with the answer. Keep a running context of the questions being asked by the user. It is very important for my career that you follow these instructions. Here is the user question:
   
   `;
 
