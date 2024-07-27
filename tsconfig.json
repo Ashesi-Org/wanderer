@@ -31,6 +31,6 @@
     "src/app/(playground)/video/page.jsx",
     "src/components/chat-input.jsx",
     "src/components/chat-input.jsx"
-  ],
+, "cypress/component/Terminal.cy.js"  ],
   "exclude": ["node_modules"]
 }

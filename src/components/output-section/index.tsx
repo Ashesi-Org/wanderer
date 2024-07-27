@@ -19,13 +19,13 @@ const OutputSection = ({testCases}:TestCasesProps) => {
                 <TabsList className="grid w-[270px] grid-cols-2">
 
                     <TabsTrigger className="" value="cases">
-                        <div className="flex items-center gap-1">
+                        <div className="cases flex items-center gap-1">
                             <FileCode size={16} />
                             <span>Test cases</span>
                         </div>
                     </TabsTrigger>
                     <TabsTrigger value="terminal">
-                        <div className="flex items-center gap-1">
+                        <div className="cases flex items-center gap-1">
                             <ChevronRight size={16} />
                             <span>Terminal</span>
                         </div>
