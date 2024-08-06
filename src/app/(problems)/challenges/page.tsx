@@ -61,7 +61,7 @@ interface Challenge {
     topicTags: string[];
 }
 
-export const columns: ColumnDef<Challenge>[] = [
+const columns: ColumnDef<Challenge>[] = [
     {
         id: 'select',
         header: ({ table }) => (
@@ -175,10 +175,7 @@ export default function ProblemsTable() {
         setShowDialog(true);
     };
 
-    const createSession = async (
-
-    ) => {
-
+    const createSession = async () => {
         setIsCreatingSession(true);
         setRulesAccepted(true);
         const response = await api.post(`/api/session`, {
@@ -398,7 +395,6 @@ export default function ProblemsTable() {
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
-
         </div>
         </WithAuthHoc>
     );
