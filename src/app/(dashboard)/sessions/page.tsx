@@ -5,7 +5,7 @@ import { Card, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 
-export const SessionCard = () => {
+const SessionCard = () => {
     return (
         <>
             <Card className='h-30 cursor-pointer'>
@@ -27,7 +27,6 @@ export const SessionCard = () => {
                         <Link className='text-sm text-primary font-semibold hover:underline' href="/analysis">View details</Link>
                     </div>
                 </div>
-
             </Card>
         </>
     );
@@ -42,7 +41,6 @@ const Analytics = () => {
                         <SessionCard key={index} />
                     ))}
                 </div>
-
             </section>
         </>
     );
