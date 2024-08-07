@@ -62,7 +62,7 @@ const Navbar = () => {
     };
 
     const timerStatus = true;
-    const timerMaxMinutes = 1;
+    const timerMaxMinutes = 20;
 
     const isMainPage = pathname === '/challenges' || pathname === '/sessions' || pathname === '/analysis';
 
