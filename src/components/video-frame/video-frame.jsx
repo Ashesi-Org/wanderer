@@ -6,7 +6,7 @@ import socketIOClient from 'socket.io-client';
 
 const VideoAudioRecorder = ({sessionId, userId}) => {
   const socket = React.useMemo(
-    () => socketIOClient('172.166.224.130:4000'),
+    () => socketIOClient('http://172.166.224.130:4000'),
     []
   );
 
