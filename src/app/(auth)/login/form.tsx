@@ -116,6 +116,7 @@ export default function LoginForm() {
                     />
                 </div>
                 <Button
+                    type="submit"
                     text="Continue with Email"
                     variant="secondary"
                     onClick={handleSubmit}

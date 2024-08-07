@@ -347,7 +347,7 @@ export default function ProblemsTable() {
                     </Button>
                 </div>
             </div>
-            <Dialog open={showDialog} onOpenChange={setShowDialog}>
+            <Dialog open={showDialog} onOpenChange={setShowDialog} >
                 <DialogContent>
                     <DialogHeader>
                         <DialogTitle> Rules and Guidelines</DialogTitle>

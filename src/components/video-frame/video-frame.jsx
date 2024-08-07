@@ -4,11 +4,18 @@ import React, { useState, useEffect, useRef } from 'react';
 import Draggable from 'react-draggable';
 import socketIOClient from 'socket.io-client';
 
-const VideoAudioRecorder = (sessionId, userId) => {
+const VideoAudioRecorder = ({sessionId, userId}) => {
   const socket = React.useMemo(
     () => socketIOClient('172.166.224.130:4000'),
     []
   );
+
+  socket.on('connect', () => {
+    socket.emit('session_started', { sessionId, userId }, (response) => {
+      console.log(response);
+    });
+    console.log('connected');
+  });
 
   const [recording, setRecording] = useState(false);
   const [audioChunks, setAudioChunks] = useState([]);
@@ -75,17 +82,14 @@ const VideoAudioRecorder = (sessionId, userId) => {
         return;
       }
 
-      socket.emit('audio', audioFile, async (response) => {
-        console.log('Response from server:', await response);
-        if(await response?.success){
-          console.log(await response?.message, audioFile);
-        }
-        else{
+      socket.emit('audio', audioFile, sessionId, async (response) => {
+        console.log('Response from server:', response);
+        if (response?.success) {
+          console.log(response.message, audioFile);
+        } else {
           console.log('Failed to send audio file to server:', audioFile);
         }
       });
-
-      
     } catch (error) {
       if (error.type === 'network') {
         console.error('Network error sending audio:', error);
@@ -206,7 +210,18 @@ const VideoAudioRecorder = (sessionId, userId) => {
           </span>
           <span className="font-semibold text-white w-5"></span>
           <div className="flex space-x-2 gap-2">
-            <button onClick={() => socket.emit('session_ended', {sessionId, userId},(response) => console.log(response))}>end session</button>
+            <button
+              onClick={() =>
+            {console.log('session_ended', { sessionId, userId })  
+                socket.emit(
+                  'session_ended',
+                  { sessionId, userId },
+                  (response) => console.log(response)
+                )}
+              }
+            >
+              end session
+            </button>
             {!isMinimized && !isMaximized && (
               <button onClick={handleMinimize}>
                 <Minimize2 size={15} />

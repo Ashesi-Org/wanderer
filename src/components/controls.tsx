@@ -78,7 +78,8 @@ export const Controls = ({
                                 <Input
                                     value={input}
                                     onChange={handleInputChange}
-                                    className="flex-1 h-10 w-full"
+                                    // startIcon={AtSign}
+                                    className="flex-1 h-10 w-full chatinput"
                                     placeholder={`Press "/" for commands`}
                                 />
                                 {input.length === 0 ? (

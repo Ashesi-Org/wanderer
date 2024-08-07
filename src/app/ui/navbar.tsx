@@ -184,7 +184,10 @@ const Navbar = () => {
                         <div className="p-[0.65rem] cursor-pointer w-fit h-full bg-secondary rounded-md text-secondary-foreground hover:bg-secondary/80">
                             <TooltipWrapper
                                 text="Timer"
-                                component={<AlarmClock size={16} />}
+                                component={<div className='flex gap-2 items-center'>
+                                    <span className='font-semibold text-sm'>12:39:46</span>
+                                    <AlarmClock size={16} />
+                                </div>}
                             />
                         </div>
                     )}

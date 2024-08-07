@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useContext } from 'react';
 import ChatInput from '@/components/chat-input';
 import CodeEditor from '@/components/editor/code-editor';
 import OutputSection from '@/components/output-section';
@@ -18,6 +18,7 @@ import { Minus, RotateCcw } from "lucide-react";
 import { useQuery } from "react-query";
 import { useActiveChallengeStore } from "@/store/active-challenge-store";
 import { useRouter } from "next/navigation";
+import { UserContext } from '@/contexts/userContext';
 
 
 interface ProblemDescriptionProps {
@@ -44,9 +45,10 @@ const Playground = ({ params }: { params: { slug: string } }) => {
 
     const router = useRouter();
     const { activeChallengeId } = useActiveChallengeStore();
+    const { user: authUser } = useContext(UserContext);
+    
     const challengeId = activeChallengeId ? activeChallengeId : params.slug?.[0];
     const sessionId = params.slug?.[2];
-    const userId = 1;
 
     if (!challengeId) {
         router.push('/challenges')
@@ -61,8 +63,8 @@ const Playground = ({ params }: { params: { slug: string } }) => {
 
     return (
         <>
-            {/* <VideoAudioRecorder sessionId={sessionId} userId={userId} /> */}
-            <div className="h-screen">
+            <VideoAudioRecorder sessionId={sessionId} userId={authUser?.id} />
+            <div className="h-screen sessionpage">
                 <ResizablePanelGroup direction="horizontal" className="w-full border ">
                     <ResizablePanel className="" defaultSize={40}>
                         <ResizablePanelGroup direction="vertical">
@@ -91,7 +93,7 @@ const Playground = ({ params }: { params: { slug: string } }) => {
                                         </span>
                                     </div>
                                 </div>
-                                <div className="flex flex-col h-full items-center">
+                                <div className="flex flex-col h-full items-center chat">
                                     <ChatInput interviewQuestion={problem?.content ?? ''} />
                                 </div>
                             </ResizablePanel>

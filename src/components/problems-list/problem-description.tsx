@@ -33,7 +33,7 @@ const ProblemDescription = ({ title, description, content, difficulty, constrain
             {
                 !loading ? <div className="flex flex-col">
                     <strong className="text-xl tracking-normal">{title}</strong>
-                    <div className="my-2 flex justify-between">
+                    <div className="my-2 flex justify-between badge">
                         <Badge
                             className={
                                 difficulty === "Hard"

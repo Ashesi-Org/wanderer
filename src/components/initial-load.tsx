@@ -10,7 +10,7 @@ export const InitialLoad = ({
 }) => {
     return (
         <>
-            <div className="flex flex-col items-center mt-12">
+            <div className="flex flex-col items-center mt-12 initial-load">
                 <div className="flex justify-center">
                     <Bot className="w-10 h-10 text-center text-slate-600" />
                 </div>
@@ -19,7 +19,7 @@ export const InitialLoad = ({
                     disabled={connecting}
                     onClick={() => !connecting && fn()}
                     type="submit"
-                    className="flex items-center gap-1"
+                    className="flex items-center gap-1 initialbtn"
                 >
                     {connecting ? (
                         <div className="w-full text-white h-full gap-2 items-center flex justify-center opacity-40 cursor-not-allowed">

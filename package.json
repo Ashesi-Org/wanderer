@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run --component"
   },
   "dependencies": {
     "@ai-sdk/openai": "^0.0.28",
@@ -61,6 +63,7 @@
     "react-resizable-panels": "^2.0.18",
     "react-syntax-highlighter": "^15.5.0",
     "recharts": "^2.12.7",
+    "recoil": "^0.7.7",
     "remark-gfm": "^4.0.0",
     "remark-math": "^6.0.0",
     "socket.io-client": "^4.7.5",
@@ -72,5 +75,8 @@
     "typescript": "5.3.3",
     "zod": "^3.23.8",
     "zustand": "^4.5.2"
+  },
+  "devDependencies": {
+    "cypress": "^13.13.0"
   }
 }

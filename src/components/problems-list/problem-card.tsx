@@ -6,7 +6,7 @@ const ProblemCard = () => {
     return (
         <>
 
-            <Card className="mt-2 mb-6">
+            <Card className="mt-2 mb-6 card">
                 <div className='px-4 py-3'>
                     <div className='flex items-center justify-between'>
                         <span className='flex items-center gap-1'>

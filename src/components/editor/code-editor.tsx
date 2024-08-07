@@ -133,7 +133,7 @@ const CodeEditor = ({ driverCode, question }: CodeEditorProps) => {
 
       {dialogVisible && (
         <Card
-          className=" bg-white p-3 shadow-lg rounded-md w-[500px]"
+          className="bg-white p-3 shadow-lg rounded-md w-[500px]"
           style={{
             position: 'absolute',
             top: `${dialogPosition.lineNumber * 20}px`,
@@ -141,7 +141,7 @@ const CodeEditor = ({ driverCode, question }: CodeEditorProps) => {
             zIndex: 1000,
           }}
         >
-          <div className="flex justify-between">
+          <div className="dialogAi flex justify-between">
             <div className="flex items-center gap-2 mb-2">
               <div className="relative h-[28px] w-[28px] rounded-full border-2 border-primary">
                 <Avatar className="h-[28px] w-[28px]">
