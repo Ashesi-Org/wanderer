@@ -1,7 +1,6 @@
 "use client"
 
-import { TrendingUp } from "lucide-react"
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Tooltip } from "recharts"
 
 import {
     Card,
@@ -17,23 +16,22 @@ import {
     ChartTooltip,
     ChartTooltipContent,
 } from "@/components/ui/chart"
+import { TrendingUp } from "lucide-react";
+
+// Generate dummy data for emotion switching
 const chartData = [
-    { month: "January", desktop: 186, mobile: 80 },
-    { month: "February", desktop: 305, mobile: 200 },
-    { month: "March", desktop: 237, mobile: 120 },
-    { month: "April", desktop: 73, mobile: 190 },
-    { month: "May", desktop: 209, mobile: 130 },
-    { month: "June", desktop: 214, mobile: 140 },
-]
+    { numSwitches: 0, frequency: 5 },
+    { numSwitches: 1, frequency: 12 },
+    { numSwitches: 2, frequency: 20 },
+    { numSwitches: 3, frequency: 15 },
+    { numSwitches: 4, frequency: 8 },
+    { numSwitches: 5, frequency: 3 },
+];
 
 const chartConfig = {
-    desktop: {
-        label: "Desktop",
-        color: "hsl(var(--chart-1))",
-    },
-    mobile: {
-        label: "Mobile",
-        color: "hsl(var(--chart-2))",
+    emotionSwitching: {
+        label: "Number of Emotion Switches",
+        color: "blue",
     },
 } satisfies ChartConfig
 
@@ -41,37 +39,48 @@ export function Histogram() {
     return (
         <Card className="w-[410px]">
             <CardHeader>
-                <CardTitle>Emotion Switching</CardTitle>
+                <CardTitle>Emotion Switching Frequency</CardTitle>
                 <CardDescription>
-                    This graph shows the frequency distribution of emotion switching
+                    This histogram shows the frequency distribution of emotion switching based on facial and speech emotion recognition during the practice session.
                 </CardDescription>
             </CardHeader>
             <CardContent>
                 <ChartContainer config={chartConfig}>
-                    <BarChart accessibilityLayer data={chartData}>
+                    <BarChart
+                        data={chartData}
+                        margin={{
+                            left: 12,
+                            right: 12,
+                            top: 20,
+                            bottom: 20,
+                        }}
+                    >
                         <CartesianGrid vertical={false} />
                         <XAxis
-                            dataKey="month"
+                            dataKey="numSwitches"
                             tickLine={false}
-                            tickMargin={10}
                             axisLine={false}
-                            tickFormatter={(value) => value.slice(0, 3)}
+                            tickMargin={10}
+                            label={{ value: "Number of Emotion Switches", position: "insideBottomRight", offset: 0 }}
                         />
-                        <ChartTooltip
-                            cursor={false}
-                            content={<ChartTooltipContent indicator="dashed" />}
+                        <YAxis
+                            label={{ value: "Frequency", angle: -90, position: "insideLeft", offset: 0 }}
                         />
-                        <Bar dataKey="desktop" fill="blue" radius={4} />
-                        <Bar dataKey="mobile" fill="red" radius={4} />
+                        <Tooltip content={<ChartTooltipContent />} />
+                        <Bar
+                            dataKey="frequency"
+                            fill={chartConfig.emotionSwitching.color}
+                            radius={4}
+                        />
                     </BarChart>
                 </ChartContainer>
             </CardContent>
             <CardFooter className="flex-col items-start gap-2 text-sm">
                 <div className="flex gap-2 font-medium leading-none">
-                    Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+                    Analyzing emotional variability during mock interview practice <TrendingUp className="h-4 w-4" />
                 </div>
                 <div className="leading-none text-muted-foreground">
-                    Showing total visitors for the last 6 months
+                    Based on facial and speech emotion recognition data
                 </div>
             </CardFooter>
         </Card>
