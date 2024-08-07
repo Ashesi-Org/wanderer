@@ -50,7 +50,7 @@ interface CompilerStore {
     problemId: number,
     userId: number,
     sessionId: string
-  ) => void;
+  ) => Promise<{status:string, results:any}> | void;
 }
 
 const useCompilerStore = create<CompilerStore>((set, get) => ({
@@ -110,52 +110,63 @@ const useCompilerStore = create<CompilerStore>((set, get) => ({
     }
   },
   handleSubmit: async (
-    code,
-    _customInput,
-    language_id,
-    problemId,
-    userId,
-    sessionId
-  ) => {
-    const setSubmitting = get().setSubmitting;
-    const setOutputDetails = get().setOutputDetails;
+  code,
+  _customInput,
+  language_id,
+  problemId,
+  userId,
+  sessionId
+) => {
+  const setSubmitting = get().setSubmitting;
+  const setOutputDetails = get().setOutputDetails;
 
-    setSubmitting(true);
-    const formData = {
-      languageId: language_id || 63,
-      code: code,
-      problemId: problemId,
-      userId: userId,
-      sessionId: sessionId,
+  setSubmitting(true);
+  const formData = {
+    languageId: language_id || 63,
+    code: code,
+    problemId: problemId,
+    userId: userId,
+    sessionId: sessionId,
+  };
+
+  const options = {
+    method: 'POST',
+    url: '/api/submission',
+    params: { type: 'test' },
+    data: formData,
+  };
+
+  try {
+    const response = await api.request(options);
+    const results = response.data;
+    console.log(results);
+    setSubmitting(false);
+    setOutputDetails(results);
+
+    return {
+      status: 'success', 
+      results: results
     };
+  } catch (err: any) {
+    let error = err.response ? err.response.data : err;
+    let status = err.response?.status;
+    console.log('error', error);
+    console.log('status', status);
 
-    const options = {
-      method: 'POST',
-      url: '/api/submission',
-      params: { type: 'test' },
-      data: formData,
-    };
-
-    try {
-      const response = await api.request(options);
-      const results = response.data;
-      console.log(results);
-      setSubmitting(false);
-      setOutputDetails(results);
-    } catch (err: any) {
-      let error = err.response ? err.response.data : err;
-      let status = err.response?.status;
-      console.log('error', error);
-      console.log('status', status);
-
-      if (status === 429) {
-        console.log('too many requests', status);
-      }
-
-      setSubmitting(false);
-      console.log('catch block...', error.message);
+    if (status === 429) {
+      console.log('too many requests', status);
     }
-  },
+
+    setSubmitting(false);
+    console.log('catch block...', error.message);
+
+    return {
+      status: 'error', 
+      results: error
+    };
+  }
+},
+
 }));
 
 export default useCompilerStore;
