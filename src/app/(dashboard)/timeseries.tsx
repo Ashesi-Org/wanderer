@@ -1,7 +1,7 @@
 "use client"
 
 import { TrendingUp } from "lucide-react"
-import { CartesianGrid, Line, LineChart, XAxis } from "recharts"
+import { CartesianGrid, Line, LineChart, XAxis, YAxis, Tooltip, Legend } from "recharts"
 
 import {
     Card,
@@ -17,23 +17,34 @@ import {
     ChartTooltip,
     ChartTooltipContent,
 } from "@/components/ui/chart"
-const chartData = [
-    { month: "January", desktop: 186, mobile: 80 },
-    { month: "February", desktop: 305, mobile: 200 },
-    { month: "March", desktop: 237, mobile: 120 },
-    { month: "April", desktop: 73, mobile: 190 },
-    { month: "May", desktop: 209, mobile: 130 },
-    { month: "June", desktop: 214, mobile: 140 },
-]
+
+// Generate 45 minutes of data
+const generateData = () => {
+    const data = [];
+    let currentTime = new Date();
+    
+    for (let i = 0; i < 45; i++) {
+        const timestamp = new Date(currentTime.getTime() - i * 60000).toISOString();
+        data.push({
+            timestamp,
+            stressPoints: Math.floor(Math.random() * 100), // Random stress points between 0 and 100
+            positiveReinforcement: Math.floor(Math.random() * 100) // Random positive reinforcement between 0 and 100
+        });
+    }
+    
+    return data.reverse(); // Reverse to get the earliest data points first
+};
+
+const chartData = generateData();
 
 const chartConfig = {
-    desktop: {
-        label: "Desktop",
-        color: "hsl(var(--chart-1))",
+    stressPoints: {
+        label: "Stress Points",
+        color: "red",
     },
-    mobile: {
-        label: "Mobile",
-        color: "hsl(var(--chart-2))",
+    positiveReinforcement: {
+        label: "Positive Reinforcement",
+        color: "green",
     },
 } satisfies ChartConfig
 
@@ -41,13 +52,12 @@ export function TimeSeriesGraph() {
     return (
         <Card className="w-[410px]">
             <CardHeader>
-                <CardTitle>Stress Points</CardTitle>
-                <CardDescription>This graph  shows your stress points and positive reinforcement indices over time </CardDescription>
+                <CardTitle>Stress Points vs. Positive Reinforcement</CardTitle>
+                <CardDescription>This graph shows stress points and positive reinforcement indices over the 45 minutes session.</CardDescription>
             </CardHeader>
             <CardContent>
                 <ChartContainer config={chartConfig}>
                     <LineChart
-                        accessibilityLayer
                         data={chartData}
                         margin={{
                             left: 12,
@@ -56,26 +66,28 @@ export function TimeSeriesGraph() {
                     >
                         <CartesianGrid vertical={false} />
                         <XAxis
-                            dataKey="month"
+                            dataKey="timestamp"
                             tickLine={false}
                             axisLine={false}
                             tickMargin={8}
-                            tickFormatter={(value) => value.slice(0, 3)}
+                            tickFormatter={(value) => new Date(value).toLocaleTimeString()}
                         />
-                        <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+                        <YAxis />
+                        <Tooltip cursor={false} content={<ChartTooltipContent />} />
+                        <Legend />
                         <Line
-                            dataKey="desktop"
+                            dataKey="stressPoints"
                             type="monotone"
-                            stroke="blue"
+                            stroke={chartConfig.stressPoints.color}
                             strokeWidth={2}
-                            dot={false}
+                            dot={true}
                         />
                         <Line
-                            dataKey="mobile"
+                            dataKey="positiveReinforcement"
                             type="monotone"
-                            stroke="red"
+                            stroke={chartConfig.positiveReinforcement.color}
                             strokeWidth={2}
-                            dot={false}
+                            dot={true}
                         />
                     </LineChart>
                 </ChartContainer>
@@ -84,10 +96,10 @@ export function TimeSeriesGraph() {
                 <div className="flex w-full items-start gap-2 text-sm">
                     <div className="grid gap-2">
                         <div className="flex items-center gap-2 font-medium leading-none">
-                            Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+                            Feedback shows improvement in stress management <TrendingUp className="h-4 w-4" />
                         </div>
                         <div className="flex items-center gap-2 leading-none text-muted-foreground">
-                            Showing total visitors for the last 6 months
+                            Analysis based on mock interview practice sessions
                         </div>
                     </div>
                 </div>

@@ -75,18 +75,31 @@ const Navbar = () => {
 
     return (
         <header
-            className={`relative top-0 z-50 w-full bg-background border-b ${pathname === '/challenges' || pathname === '/sessions' || pathname === "/analysis" ? 'p-2' : ''}`}
+            className={`relative top-0 z-50 w-full bg-background border-b ${pathname === '/challenges' ||
+                    pathname === '/sessions' ||
+                    pathname === '/analysis'
+                    ? 'p-2'
+                    : ''
+                }`}
         >
             <div className="flex h-[48px] items-center justify-between px-4 md:px-4">
                 <div className="flex gap-4 items-center">
                     <Link className="flex items-center gap-1" href="#">
                         <MountainIcon
-                            className={`h-6 w-6 font-bold ${pathname === '/challenges' || pathname === '/analysis' || pathname === '/sessions' ? 'text-primary' : ''
+                            className={`h-6 w-6 font-bold ${pathname === '/challenges' ||
+                                    pathname === '/analysis' ||
+                                    pathname === '/sessions'
+                                    ? 'text-primary'
+                                    : ''
                                 }`}
                         />
                     </Link>
+
+                   
                     <Sheet>
-                        {pathname !== '/challenges' && pathname !== '/sessions' && pathname !== '/analysis' ? (
+                        {pathname !== '/challenges' &&
+                            pathname !== '/sessions' &&
+                            pathname !== '/analysis' ? (
                             <SheetTrigger asChild>
                                 <Button
                                     className="h-auto w-fit flex gap-2 items-center"
@@ -98,9 +111,12 @@ const Navbar = () => {
                                     <span className="text-sm">Problem List</span>
                                 </Button>
                             </SheetTrigger>
-                        ) : (
-                            <h2 className="font-semibold text-lg text-primary">Wanderer</h2>
-                        )}
+                        ) : 
+                           
+                           <h2 className="font-semibold text-lg text-primary">Wanderer</h2>
+
+                        }
+                
                         <SheetContent style={{ width: '600px' }} side="left">
                             <SheetHeader>
                                 <SheetTitle>Problems List</SheetTitle>
@@ -130,55 +146,61 @@ const Navbar = () => {
                         </SheetContent>
                     </Sheet>
                 </div>
-                {pathname !== '/challenges' && pathname !== '/sessions' && pathname !== '/analysis' && (
-                    <div className="flex justify-center items-center gap-2">
-                        {running ? (
-                            <Button
-                                className="flex h-auto w-fit flex-row gap-x-1 items-center"
-                                disabled
-                            >
-                                <Loader2 className=" h-4 w-4 animate-spin" />
-                                <small className="text-sm">Running</small>
-                            </Button>
-                        ) : (
-                            <Button
-                                onClick={runCode}
-                                className={`${submitting ? 'hidden' : 'flex'
-                                    } h-auto w-fit items-center gap-1`}
-                            >
-                                <span>
-                                    <Play size={14} />
-                                </span>
-                                Run
-                            </Button>
-                        )}
-
-                        {submitting ? (
-                            <Button
-                                className="h-auto w-fit flex items-center gap-1"
-                                variant="secondary"
-                                disabled
-                            >
-                                <span>
+                {pathname !== '/challenges' &&
+                    pathname !== '/sessions' &&
+                    pathname !== '/analysis' ? (
+                        <div className="flex justify-center items-center gap-2">
+                            {running ? (
+                                <Button
+                                    className="flex h-auto w-fit flex-row gap-x-1 items-center"
+                                    disabled
+                                >
                                     <Loader2 className=" h-4 w-4 animate-spin" />
-                                </span>
-                                <span>Submitting</span>
-                            </Button>
-                        ) : (
-                            <Button
-                                className={`${running ? 'hidden' : 'flex'
-                                    } h-auto w-fit items-center gap-1`}
-                                variant="secondary"
-                                onClick={submitCode}
-                            >
-                                <span>
-                                    <BugPlay size={14} />
-                                </span>
-                                <span>Submit</span>
-                            </Button>
-                        )}
-                    </div>
-                )}
+                                    <small className="text-sm">Running</small>
+                                </Button>
+                            ) : (
+                                <Button
+                                    onClick={runCode}
+                                    className={`${submitting ? 'hidden' : 'flex'
+                                        } h-auto w-fit items-center gap-1`}
+                                >
+                                    <span>
+                                        <Play size={14} />
+                                    </span>
+                                    Run
+                                </Button>
+                            )}
+
+                            {submitting ? (
+                                <Button
+                                    className="h-auto w-fit flex items-center gap-1"
+                                    variant="secondary"
+                                    disabled
+                                >
+                                    <span>
+                                        <Loader2 className=" h-4 w-4 animate-spin" />
+                                    </span>
+                                    <span>Submitting</span>
+                                </Button>
+                            ) : (
+                                <Button
+                                    className={`${running ? 'hidden' : 'flex'
+                                        } h-auto w-fit items-center gap-1`}
+                                    variant="secondary"
+                                    onClick={submitCode}
+                                >
+                                    <span>
+                                        <BugPlay size={14} />
+                                    </span>
+                                    <span>Submit</span>
+                                </Button>
+                            )}
+                        </div>
+                    ):  
+                        <Link className="flex items-center gap-1 text-primary" href="/challenges">
+                            Back to Challenges
+                        </Link>}
+                 
                 <div className="flex gap-3 items-center">
                     {pathname !== '/challenges' && (
                         <div className="p-[0.65rem] cursor-pointer w-fit h-full bg-secondary rounded-md text-secondary-foreground hover:bg-secondary/80">

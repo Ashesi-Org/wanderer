@@ -48,6 +48,9 @@ import {
     DialogDescription,
     DialogClose,
 } from '@/components/ui/dialog';
+import { UserContext } from '@/contexts/userContext';
+import { useContext } from 'react';
+import WithAuthHoc from '@/components/with-auth/WithAuthHoc';
 
 type Difficulty = 'Easy' | 'Medium' | 'Hard';
 
@@ -157,6 +160,9 @@ export default function ProblemsTable() {
         return response.data;
     });
     const router = useRouter();
+    
+    const { user } = useContext(UserContext);
+    
     const { activeChallengeId, setActiveChallenge } = useActiveChallengeStore();
     const [showDialog, setShowDialog] = React.useState(false);
     const [rulesAccepted, setRulesAccepted] = React.useState(false);
@@ -177,7 +183,7 @@ export default function ProblemsTable() {
         setRulesAccepted(true);
         const response = await api.post(`/api/session`, {
             challengeId: selectedChallenge?.challenge_id,
-            userId: 1,
+            userId: user?.id,
         });
 
         if (response.status === 201) {
@@ -225,6 +231,7 @@ export default function ProblemsTable() {
     });
 
     return (
+        <WithAuthHoc>
         <div className="max-w-screen-md h-screen justify-center mx-auto">
             <div className="my-4">
                 <h2 className="text-3xl mb-3 text-primary text-center font-semibold">
@@ -393,5 +400,6 @@ export default function ProblemsTable() {
             </Dialog>
 
         </div>
+        </WithAuthHoc>
     );
 }

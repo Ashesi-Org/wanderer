@@ -19,6 +19,7 @@ import { useQuery } from "react-query";
 import { useActiveChallengeStore } from "@/store/active-challenge-store";
 import { useRouter } from "next/navigation";
 import { UserContext } from '@/contexts/userContext';
+import WithAuthHoc from '@/components/with-auth/WithAuthHoc';
 
 
 interface ProblemDescriptionProps {
@@ -46,6 +47,8 @@ const Playground = ({ params }: { params: { slug: string } }) => {
     const router = useRouter();
     const { activeChallengeId } = useActiveChallengeStore();
     const { user: authUser } = useContext(UserContext);
+    // console.log(authUser);
+    
     
     const challengeId = activeChallengeId ? activeChallengeId : params.slug?.[0];
     const sessionId = params.slug?.[2];
@@ -62,7 +65,7 @@ const Playground = ({ params }: { params: { slug: string } }) => {
     })
 
     return (
-        <>
+        <WithAuthHoc>
             <VideoAudioRecorder sessionId={sessionId} userId={authUser?.id} />
             <div className="h-screen sessionpage">
                 <ResizablePanelGroup direction="horizontal" className="w-full border ">
@@ -125,7 +128,7 @@ const Playground = ({ params }: { params: { slug: string } }) => {
                     <ResizableHandle />
                 </ResizablePanelGroup>
             </div>
-        </>
+        </WithAuthHoc>
     );
 };
 

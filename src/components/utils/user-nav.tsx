@@ -53,7 +53,7 @@ export function UserNav({ user }: any) {
                         Profile
                         <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>Feedback</DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => router.push('/sessions')}>Dashboard</DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
