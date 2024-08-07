@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { Dialog, DialogContent, DialogTrigger, DialogTitle, DialogDescription, DialogClose } from '@/components/ui/dialog';
 
-const SubmissionSuccess = ({ submissionId }: { submissionId: string }) => {
+const SubmissionSuccess = () => {
   const [open, setOpen] = useState(false);
 
   const handleOpenDialog = () => {
@@ -17,7 +17,7 @@ const SubmissionSuccess = ({ submissionId }: { submissionId: string }) => {
 
   // Dummy data for demonstration
   const dummyData = {
-    submission_id: submissionId || 12345,
+    submission_id: "" || 12345,
     user_id: 1,
     challenge_id: 101,
     code: 'console.log("Hello World");',
