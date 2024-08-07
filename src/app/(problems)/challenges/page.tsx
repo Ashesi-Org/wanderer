@@ -156,7 +156,7 @@ const columns: ColumnDef<Challenge>[] = [
 
 export default function ProblemsTable() {
     const { data: challenges } = useQuery<Challenge[]>('challenges', async () => {
-        const response = await api.get(`/api/challenges`);
+        const response = await api.get(`/v1/api/challenges`);
         return response.data;
     });
     const router = useRouter();
@@ -178,7 +178,7 @@ export default function ProblemsTable() {
     const createSession = async () => {
         setIsCreatingSession(true);
         setRulesAccepted(true);
-        const response = await api.post(`/api/session`, {
+        const response = await api.post(`/v1/api/session`, {
             challengeId: selectedChallenge?.challenge_id,
             userId: user?.id,
         });

@@ -1,13 +1,9 @@
 {
   "routes": [
     {
-      "src": "^/(auth|user|v1)/.*",
-      "dest": "/:splat",
+      "src": "^/(auth|user|v1)/(.*)",
+      "dest": "https://wandererappserver.azurewebsites.net/v1/$1/$2",
       "status": 200
-    },
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
     },
     {
       "src": "/(.*)",

@@ -22,7 +22,7 @@ export function UserNav({ user }: any) {
     const router = useRouter();
 
     const handleLogOut = async () => {
-        const res = await api.get('/auth/logout')
+        const res = await api.get('/v1/auth/logout')
         if (res.status === 200) {
             router.push('/login')
         }

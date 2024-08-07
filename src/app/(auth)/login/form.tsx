@@ -24,7 +24,7 @@ const useLoginForm = () => {
             process.env.NODE_ENV === 'production'
                 ? process.env.NEXT_PUBLIC_PROD_API_URL
                 : process.env.NEXT_PUBLIC_DEV_API_URL;
-        const redirectUrl = `${apiUrl}/auth/google`;
+        const redirectUrl = `${apiUrl}/v1/auth/google`;
         window.location.href = redirectUrl;
     };
 
@@ -47,7 +47,7 @@ const useLoginForm = () => {
         }
 
         try {
-            const res = await api.post('/auth/local', {
+            const res = await api.post('/v1/auth/local', {
                 email,
                 password,
             });

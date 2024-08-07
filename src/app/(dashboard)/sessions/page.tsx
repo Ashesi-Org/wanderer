@@ -76,13 +76,13 @@ const SkeletonLoader = () => {
 };
 
 const fetchSessions = async (userId: number) => {
-    const response = await fetch(`https://wandererappserver.azurewebsites.net/api/sessions/${userId}`);
+    const response = await fetch(`https://wandererappserver.azurewebsites.net/v1/api/sessions/${userId}`);
     return response.json();
 };
 
 const fetchChallenge = async (id: any) => {
     console.log(id);
-    const response = await fetch(`https://wandererappserver.azurewebsites.net/api/challenge/title/${id}`);
+    const response = await fetch(`https://wandererappserver.azurewebsites.net/v1/api/challenge/title/${id}`);
     console.log(response.body);
     return response.json();
 };

@@ -21,7 +21,7 @@ export const UserContext = createContext<UserContext>({} as UserContext)
 
 const UserContextProvider = ({ children }: ContextProps) => {
     const getUser = async () => {
-        const response = await api.get('/user')
+        const response = await api.get('/v1/user')
         return response.data
     }
     const { data: user, isLoading: isUserLoading } = useQuery('user', getUser, {

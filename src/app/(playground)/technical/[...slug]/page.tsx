@@ -59,7 +59,7 @@ const Playground = ({ params }: { params: { slug: string } }) => {
     };
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const { data: problem, isLoading } = useQuery('activeProblem', async () => {
-        const response = await api.get(`/api/challenge/${challengeId}`)
+        const response = await api.get(`/v1/api/challenge/${challengeId}`)
 
         return response.data as ProblemDescriptionProps;
     })

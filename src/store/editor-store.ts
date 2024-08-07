@@ -84,7 +84,7 @@ const useCompilerStore = create<CompilerStore>((set, get) => ({
 
     const options = {
       method: 'POST',
-      url: '/api/submission',
+      url: '/v1/api/submission',
       params: { type: 'test' },
       data: formData,
     };
@@ -131,7 +131,7 @@ const useCompilerStore = create<CompilerStore>((set, get) => ({
 
   const options = {
     method: 'POST',
-    url: '/api/submission',
+    url: '/v1/api/submission',
     params: { type: 'submit' },
     data: formData,
   };
