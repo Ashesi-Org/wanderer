@@ -23,8 +23,8 @@ interface OutputDetails {
 interface CompilerStore {
   running: boolean;
   outputDetails: OutputDetails | null;
-  code: string; // Add code state
-  setCode: (code: string) => void; // Add setCode function
+  code: string; 
+  setCode: (code: string) => void; 
   setRunning: (running: boolean) => void;
   setOutputDetails: (outputDetails: OutputDetails | null) => void;
   handleCompile: (customInput: string, language_id?: number) => void;
@@ -34,14 +34,14 @@ interface CompilerStore {
 const useCompilerStore = create<CompilerStore>((set, get) => ({
   running: false,
   outputDetails: null,
-  code: '', // Initialize code state
-  setCode: (code) => set({ code }), // Implement setCode function
+  code: '', 
+  setCode: (code) => set({ code }), 
   setRunning: (running) => set({ running }),
   setOutputDetails: (outputDetails) => set({ outputDetails }),
   handleCompile: async (customInput, language_id) => {
     const setRunning = get().setRunning;
     const checkStatus = get().checkStatus;
-    const code = get().code; // Get the code from the state
+    const code = get().code; 
 
     setRunning(true);
 
