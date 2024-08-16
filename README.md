@@ -25,8 +25,10 @@ pnpm dev
 bun dev
 ```
 
+
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-You can find the server code and ML models on [Simon's Github](https://github.com/Simon-157/) 
+#### You can find the server code and ML models on [Simon's Github](https://github.com/Simon-157/) 
 
 ## Demo
 
