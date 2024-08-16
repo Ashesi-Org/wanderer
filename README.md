@@ -1,5 +1,12 @@
 ## Getting Started
+Wanderer is an AI-powered technical mock interview platform. Check out the demo below👇:
 
+## Demo
+
+https://github.com/user-attachments/assets/54d82560-41b9-4e3b-9763-1910985c61cb
+
+
+## Installation
 Clone the repo
 
 ```bash
@@ -26,13 +33,30 @@ bun dev
 ```
 
 
-
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 #### You can find the server code and ML models on [Simon's Github](https://github.com/Simon-157/) 
 
-## Demo
+### Environment Variables
+Replace the env values with the correct credentials. You will need this to successfully run the project
+```
 
-https://github.com/user-attachments/assets/54d82560-41b9-4e3b-9763-1910985c61cb
+REACT_APP_RAPID_API_HOST=xxxxxxxxxxx
+REACT_APP_RAPID_API_KEY=xxxxxxxxxxx
+
+NEXT_PUBLIC_DEV_API_URL=xxxxxxxxxxx
+NODE_ENV=development
+NEXT_PUBLIC_DEV_API_URL=xxxxxxxxxxx
+NEXT_PUBLIC_DEV_API_URL=xxxxxxxxxxx
+NEXT_PUBLIC_PROD_API_URL=xxxxxxxxxxx
+
+
+GROQ_API_KEY=xxxxxxxxxxx
+DEEPGRAM_API_KEY=xxxxxxxxxxx
+DEEPGRAM_STT_DOMAIN=https://api.deepgram.com
+DEEPGRAM_ENV=development
+
+
+```
 
 
 
