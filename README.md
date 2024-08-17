@@ -10,7 +10,7 @@ https://github.com/user-attachments/assets/54d82560-41b9-4e3b-9763-1910985c61cb
 Clone the repo
 
 ```bash
-git clone https://github.com/urdadx/wanderer
+git clone https://github.com/Ashesi-Org/wanderer
 ```
 
 Change directory and install all packages
